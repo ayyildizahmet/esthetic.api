@@ -70,7 +70,6 @@ namespace MakeEat.Api.Controllers
             {
                 response.Message = "Kayıt işlemi başarılı.";
             }
-
             return response;
         }
     }

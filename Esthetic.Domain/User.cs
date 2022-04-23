@@ -1,0 +1,16 @@
+﻿using System.Collections.Generic;
+using MakeEat.Core.Contracts.EntityBase;
+
+namespace MakeEat.Domain
+{
+    public class User:Entity<int>
+    {
+        public string Email { get; set; }
+        public string FirstName { get; set; }
+        public string LastName { get; set; }
+        public string Phone { get; set; }
+        public byte[] PasswordSalt { get; set; }
+        public byte[] PasswordHash { get; set; }
+        public virtual List<Address> Addresses { get; set; }
+    }
+}

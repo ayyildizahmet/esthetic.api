@@ -1,0 +1,16 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net6.0</TargetFramework>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\Esthetic.Core\Esthetic.Core.csproj" />
+    <ProjectReference Include="..\Esthetic.DataAccess\Esthetic.DataAccess.csproj" />
+    <ProjectReference Include="..\Esthetic.Domain\Esthetic.Domain.csproj" />
+    <ProjectReference Include="..\Esthetic.Model.Mapper\Esthetic.Model.Mapper.csproj" />
+    <ProjectReference Include="..\Esthetic.Model\Esthetic.Model.csproj" />
+    <ProjectReference Include="..\Esthetic.Utility\Esthetic.Utility.csproj" />
+  </ItemGroup>
+
+</Project>

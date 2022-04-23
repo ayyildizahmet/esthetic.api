@@ -14,7 +14,6 @@ namespace MakeEat.Api.Controllers
     public class AddressController : Controller
     {
         private readonly IAddressService _addressService;
-
         public AddressController(IAddressService addressService)
         {
             _addressService = addressService;

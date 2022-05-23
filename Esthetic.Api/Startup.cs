@@ -1,5 +1,7 @@
 using System;
 using System.Text;
+using Esthetic.Core.Contracts.Utilities;
+using Esthetic.Utility;
 using FluentValidation.AspNetCore;
 using MakeEat.Core.Contracts.Data;
 using MakeEat.Core.Contracts.UnitOfWork;
@@ -35,7 +37,10 @@ namespace MakeEat.Api
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddControllers().AddFluentValidation();
-            
+            services.AddCors(p => p.AddPolicy("corsapp", builder =>
+            {
+                builder.AllowAnyOrigin().AllowAnyMethod().AllowAnyHeader();
+            }));
             services.AddTransient<IAuthService, AuthService>();
             services.AddTransient<IUserService, UserService>();
             services.AddTransient<IAddressService, AddressService>();
@@ -46,6 +51,8 @@ namespace MakeEat.Api
             
             services.AddTransient<ITokenHelper, JwtHelper>();
             services.AddScoped<IUnitOfWork, UnitOfWork>();
+
+            services.AddSingleton<IStringUtility, StringUtility>();
 
             services.AddAutoMapper(typeof(Startup));
             services.AddSwaggerGen(options => {
@@ -97,23 +104,27 @@ namespace MakeEat.Api
         
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
         {
+
             if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();
             }
             
             app.UseRouting();
+            app.UseCors("corsapp");
             app.UseAuthentication();
             app.UseAuthorization();
             app.UseSwagger();
             app.UseSwaggerUI(options => {
-                options.DocumentTitle = "MakeEat API";
-                options.SwaggerEndpoint("/swagger/v1/swagger.json", "MakeEat Api Documentation");
+                options.DocumentTitle = "Esthetic API";
+                options.SwaggerEndpoint("/swagger/v1/swagger.json", "Esthetic Api Documentation");
             });
             app.UseEndpoints(endpoints =>
             {
                 endpoints.MapControllers();
             });
+
+            
         }
     }
 }

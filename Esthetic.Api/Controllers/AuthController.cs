@@ -1,12 +1,13 @@
 ﻿using System;
-using System.Text;
 using MakeEat.Model;
 using MakeEat.Model.Validation;
 using MakeEat.Service.Contracts;
+using Microsoft.AspNetCore.Cors;
 using Microsoft.AspNetCore.Mvc;
 
 namespace MakeEat.Api.Controllers
 {
+    [EnableCors("corsapp")]
     [Route("api/[controller]")]
     [ApiController]
     public class AuthController : Controller
@@ -35,12 +36,14 @@ namespace MakeEat.Api.Controllers
 
             var user = _authService.Login(userLoginRequestModel);
 
-            if (user.Id != default(int))
+            if (user.Id != default)
             {
                 response.Data = user;
                 var token = _authService.CreateAccessToken(user);
-                if (token != null)
+                if (token != null) {
                     response.Data.Security = token;
+                    response.Message = "Giriş işlemi başarılı";
+                }
             }
             else
             {
@@ -61,15 +64,22 @@ namespace MakeEat.Api.Controllers
                 response.Success = false;
                 response.Message = "Kullanıcı zaten mevcut.";
             }
-            else if (_authService.Register(userRegisterRequestModel) == false)
-            {
-                response.Success = false;
-                response.Message = "Kullanıcı kayıt edilirken bir sorun meydana geldi.";
-            }
+            
             else
             {
-                response.Message = "Kayıt işlemi başarılı.";
+                UserRegisterResponseModel result = _authService.Register(userRegisterRequestModel);
+                if (result.IsSuccess)
+                {
+                    response.Data = result;
+                    response.Message = "Kayıt işlemi başarılı.";
+                }
+                else
+                {
+                    response.Success = false;
+                    response.Message = "Kullanıcı kayıt edilirken bir sorun meydana geldi.";
+                }
             }
+         
             return response;
         }
     }

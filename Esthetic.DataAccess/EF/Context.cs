@@ -20,9 +20,10 @@ namespace MakeEat.DataAccess.EF
         public DbSet<City> Cities { get; set; }
         public DbSet<District> Districts { get; set; }
         public DbSet<Category> Categories { get; set; }
-        public DbSet<Product> Products { get; set; }
         public DbSet<ImageType> ImageType { get; set; }
         public DbSet<Image> Image { get; set; }
+        public DbSet<Company> Company { get; set; }
+        public DbSet<Branch> Branch { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
@@ -31,9 +32,10 @@ namespace MakeEat.DataAccess.EF
             modelBuilder.ApplyConfiguration(new CityMapping());
             modelBuilder.ApplyConfiguration(new DistrictMapping());
             modelBuilder.ApplyConfiguration(new CategoryMapping());
-            modelBuilder.ApplyConfiguration(new ProductMapping());
             modelBuilder.ApplyConfiguration(new ImageTypeMapping());
             modelBuilder.ApplyConfiguration(new ImageMapping());
+            modelBuilder.ApplyConfiguration(new CompanyMapping());
+            modelBuilder.ApplyConfiguration(new BranchMapping());
 
             foreach (var relationship in modelBuilder.Model.GetEntityTypes().SelectMany(e => e.GetForeignKeys()))
             {
@@ -77,8 +79,12 @@ namespace MakeEat.DataAccess.EF
             return base.SaveChanges();
         }
 
-        public void PopulateData(ModelBuilder modelBuilder)
+        public static void PopulateData(ModelBuilder modelBuilder)
         {
+            //modelBuilder.Entity<User>().HasData(
+            //    new User { Id = 1, FirstName = "Ahmet", LastName = "Ayyıldız", Email = "ahmet.ayyildiz@windowslive.com", Phone = "5053242052", }
+            //);
+
             modelBuilder.Entity<City>().HasData(
                 new City { Id = 1, Name = "Ankara", Code = "06", CreatedDate = DateTime.Now, ModifiedDate = DateTime.Now },
                 new City { Id = 2, Name = "İstanbul", Code = "34", CreatedDate = DateTime.Now, ModifiedDate = DateTime.Now }

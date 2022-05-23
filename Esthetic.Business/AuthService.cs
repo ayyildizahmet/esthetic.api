@@ -1,6 +1,5 @@
-﻿using System;
-using AutoMapper;
-using MakeEat.Domain;
+﻿using AutoMapper;
+using Esthetic.Core.Contracts.Utilities;
 using MakeEat.Model;
 using MakeEat.Service.Contracts;
 using MakeEat.Utility.Security;
@@ -13,12 +12,14 @@ namespace MakeEat.Service
         private readonly IUserService _userService;
         private readonly ITokenHelper _tokenHelper;
         private readonly IMapper _mapper;
+        private readonly IStringUtility _stringUtility;
 
-        public AuthService(IUserService userService, ITokenHelper tokenHelper, IMapper mapper)
+        public AuthService(IUserService userService, ITokenHelper tokenHelper, IMapper mapper, IStringUtility stringUtility)
         {
             _userService = userService;
             _tokenHelper = tokenHelper;
             _mapper = mapper;
+            _stringUtility = stringUtility;
         }
 
         public UserLoginResponseModel Login(UserLoginRequestModel userLoginRequestModel)
@@ -43,10 +44,14 @@ namespace MakeEat.Service
             return result;
         }
 
-        public bool Register(UserRegisterRequestModel userRegisterRequestModel)
+        public UserRegisterResponseModel Register(UserRegisterRequestModel userRegisterRequestModel)
         {
+            UserRegisterResponseModel result = new UserRegisterResponseModel();
+            userRegisterRequestModel.FirstName = _stringUtility.ToPascalCase(userRegisterRequestModel.FirstName);
+            userRegisterRequestModel.LastName = _stringUtility.ToPascalCase(userRegisterRequestModel.LastName);
             HashingHelper.CreatePasswordHash(userRegisterRequestModel.Password, out var passwordHash, out var passwordSalt);
-            return _userService.Add(userRegisterRequestModel, passwordHash, passwordSalt); 
+            result.IsSuccess = _userService.Add(userRegisterRequestModel, passwordHash, passwordSalt);
+            return result;
         }
 
         public bool IsUserExists(string email)

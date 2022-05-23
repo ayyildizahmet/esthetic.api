@@ -5,6 +5,7 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\Esthetic.Core\Esthetic.Core.csproj" />
     <ProjectReference Include="..\Esthetic.Domain\Esthetic.Domain.csproj" />
     <ProjectReference Include="..\Esthetic.Model\Esthetic.Model.csproj" />
   </ItemGroup>

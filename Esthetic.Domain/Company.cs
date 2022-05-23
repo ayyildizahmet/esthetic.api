@@ -3,11 +3,10 @@ using MakeEat.Core.Contracts.EntityBase;
 
 namespace MakeEat.Domain
 {
-    public class Category : Entity<int>
+    public class Company:Entity<int>
     {
         public string Name { get; set; }
-        public int OrderNumber { get; set; }
-        
-
+        public Image Logo { get; set; }
+        public virtual List<Branch> Branches{ get; set; } 
     }
 }

@@ -3,6 +3,7 @@ using System;
 using MakeEat.DataAccess.EF;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -10,9 +11,10 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Esthetic.DataAccess.Migrations
 {
     [DbContext(typeof(Context))]
-    partial class ContextModelSnapshot : ModelSnapshot
+    [Migration("20220508203105_company")]
+    partial class company
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -172,8 +174,8 @@ namespace Esthetic.DataAccess.Migrations
                         {
                             Id = 1,
                             Code = "06",
-                            CreatedDate = new DateTime(2022, 5, 20, 9, 30, 9, 365, DateTimeKind.Local).AddTicks(2933),
-                            ModifiedDate = new DateTime(2022, 5, 20, 9, 30, 9, 365, DateTimeKind.Local).AddTicks(2947),
+                            CreatedDate = new DateTime(2022, 5, 8, 23, 31, 5, 350, DateTimeKind.Local).AddTicks(7538),
+                            ModifiedDate = new DateTime(2022, 5, 8, 23, 31, 5, 350, DateTimeKind.Local).AddTicks(7548),
                             Name = "Ankara",
                             State = 1
                         },
@@ -181,8 +183,8 @@ namespace Esthetic.DataAccess.Migrations
                         {
                             Id = 2,
                             Code = "34",
-                            CreatedDate = new DateTime(2022, 5, 20, 9, 30, 9, 365, DateTimeKind.Local).AddTicks(2953),
-                            ModifiedDate = new DateTime(2022, 5, 20, 9, 30, 9, 365, DateTimeKind.Local).AddTicks(2953),
+                            CreatedDate = new DateTime(2022, 5, 8, 23, 31, 5, 350, DateTimeKind.Local).AddTicks(7551),
+                            ModifiedDate = new DateTime(2022, 5, 8, 23, 31, 5, 350, DateTimeKind.Local).AddTicks(7552),
                             Name = "İstanbul",
                             State = 1
                         });
@@ -252,8 +254,8 @@ namespace Esthetic.DataAccess.Migrations
                         {
                             Id = 1,
                             CityId = 2,
-                            CreatedDate = new DateTime(2022, 5, 20, 9, 30, 9, 365, DateTimeKind.Local).AddTicks(3120),
-                            ModifiedDate = new DateTime(2022, 5, 20, 9, 30, 9, 365, DateTimeKind.Local).AddTicks(3121),
+                            CreatedDate = new DateTime(2022, 5, 8, 23, 31, 5, 350, DateTimeKind.Local).AddTicks(7645),
+                            ModifiedDate = new DateTime(2022, 5, 8, 23, 31, 5, 350, DateTimeKind.Local).AddTicks(7646),
                             Name = "Üsküdar",
                             State = 1
                         },
@@ -261,8 +263,8 @@ namespace Esthetic.DataAccess.Migrations
                         {
                             Id = 2,
                             CityId = 2,
-                            CreatedDate = new DateTime(2022, 5, 20, 9, 30, 9, 365, DateTimeKind.Local).AddTicks(3123),
-                            ModifiedDate = new DateTime(2022, 5, 20, 9, 30, 9, 365, DateTimeKind.Local).AddTicks(3124),
+                            CreatedDate = new DateTime(2022, 5, 8, 23, 31, 5, 350, DateTimeKind.Local).AddTicks(7647),
+                            ModifiedDate = new DateTime(2022, 5, 8, 23, 31, 5, 350, DateTimeKind.Local).AddTicks(7647),
                             Name = "Kadıköy",
                             State = 1
                         });
@@ -292,6 +294,9 @@ namespace Esthetic.DataAccess.Migrations
                         .HasMaxLength(200)
                         .HasColumnType("varchar(200)");
 
+                    b.Property<int?>("ProductId")
+                        .HasColumnType("int");
+
                     b.Property<int>("State")
                         .HasColumnType("int");
 
@@ -303,6 +308,8 @@ namespace Esthetic.DataAccess.Migrations
                     b.HasKey("Id");
 
                     b.HasIndex("ImageTypeId");
+
+                    b.HasIndex("ProductId");
 
                     b.ToTable("Image", (string)null);
                 });
@@ -330,6 +337,46 @@ namespace Esthetic.DataAccess.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("ImageType", (string)null);
+                });
+
+            modelBuilder.Entity("MakeEat.Domain.Product", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    b.Property<int>("CategoryId")
+                        .HasColumnType("int");
+
+                    b.Property<string>("Content")
+                        .IsRequired()
+                        .HasMaxLength(2000)
+                        .HasColumnType("varchar(2000)");
+
+                    b.Property<DateTime>("CreatedDate")
+                        .HasColumnType("datetime(6)");
+
+                    b.Property<DateTime?>("ModifiedDate")
+                        .HasColumnType("datetime(6)");
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasMaxLength(200)
+                        .HasColumnType("varchar(200)");
+
+                    b.Property<int>("State")
+                        .HasColumnType("int");
+
+                    b.Property<string>("Title")
+                        .IsRequired()
+                        .HasMaxLength(200)
+                        .HasColumnType("varchar(200)");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("CategoryId");
+
+                    b.ToTable("Product", (string)null);
                 });
 
             modelBuilder.Entity("MakeEat.Domain.User", b =>
@@ -453,7 +500,28 @@ namespace Esthetic.DataAccess.Migrations
                         .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
 
+                    b.HasOne("MakeEat.Domain.Product", null)
+                        .WithMany("Images")
+                        .HasForeignKey("ProductId")
+                        .OnDelete(DeleteBehavior.Restrict);
+
                     b.Navigation("ImageType");
+                });
+
+            modelBuilder.Entity("MakeEat.Domain.Product", b =>
+                {
+                    b.HasOne("MakeEat.Domain.Category", "Category")
+                        .WithMany("Products")
+                        .HasForeignKey("CategoryId")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
+
+                    b.Navigation("Category");
+                });
+
+            modelBuilder.Entity("MakeEat.Domain.Category", b =>
+                {
+                    b.Navigation("Products");
                 });
 
             modelBuilder.Entity("MakeEat.Domain.City", b =>
@@ -464,6 +532,11 @@ namespace Esthetic.DataAccess.Migrations
             modelBuilder.Entity("MakeEat.Domain.Company", b =>
                 {
                     b.Navigation("Branches");
+                });
+
+            modelBuilder.Entity("MakeEat.Domain.Product", b =>
+                {
+                    b.Navigation("Images");
                 });
 
             modelBuilder.Entity("MakeEat.Domain.User", b =>

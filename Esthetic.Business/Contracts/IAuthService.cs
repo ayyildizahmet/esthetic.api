@@ -8,7 +8,7 @@ namespace MakeEat.Service.Contracts
     public interface IAuthService : IService
     {
         UserLoginResponseModel Login(UserLoginRequestModel userLoginRequestModel);
-        bool Register(UserRegisterRequestModel userRegisterRequestModel);
+        UserRegisterResponseModel Register(UserRegisterRequestModel userRegisterRequestModel);
         AccessTokenModel CreateAccessToken(UserLoginResponseModel user);
         bool IsUserExists(string email);
     }

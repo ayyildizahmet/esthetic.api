@@ -1,9 +1,9 @@
-﻿using MakeEat.Core.Contracts.Data;
-using MakeEat.Core.Contracts.RepositoryBase;
-using MakeEat.DataAccess.Repositories.Contracts;
-using MakeEat.Domain;
+﻿using Esthetic.Core.Contracts.Data;
+using Esthetic.Core.Contracts.RepositoryBase;
+using Esthetic.DataAccess.Repositories.Contracts;
+using Esthetic.Domain;
 
-namespace MakeEat.DataAccess.Repositories
+namespace Esthetic.DataAccess.Repositories
 {
     public class CategoryRepository : Repository<Category>, ICategoryRepository
     {

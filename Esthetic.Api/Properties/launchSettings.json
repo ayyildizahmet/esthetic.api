@@ -17,7 +17,7 @@
         "ASPNETCORE_ENVIRONMENT": "Development"
       }
     },
-    "MakeEat.Api": {
+    "Esthetic.Api": {
       "commandName": "Project",
       "launchBrowser": true,
       "launchUrl": "swagger",

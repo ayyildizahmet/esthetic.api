@@ -1,8 +1,8 @@
-﻿using MakeEat.Domain;
+﻿using Esthetic.Domain;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
-namespace MakeEat.DataAccess.EF.Mapping
+namespace Esthetic.DataAccess.EF.Mapping
 {
     public class BranchMapping : IEntityTypeConfiguration<Branch>
     {

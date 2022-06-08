@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace MakeEat.Core.Contracts.EntityBase
+namespace Esthetic.Core.Contracts.EntityBase
 {
     public interface IEntity<TKey> : IEntity
     {

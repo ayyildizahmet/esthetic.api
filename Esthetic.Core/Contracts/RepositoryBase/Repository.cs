@@ -4,14 +4,14 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Linq;
 using System.Linq.Expressions;
-using MakeEat.Core.Contracts.Data;
-using MakeEat.Core.Contracts.EntityBase;
+using Esthetic.Core.Contracts.Data;
+using Esthetic.Core.Contracts.EntityBase;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.ChangeTracking;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
 
-namespace MakeEat.Core.Contracts.RepositoryBase
+namespace Esthetic.Core.Contracts.RepositoryBase
 
 {
     public class Repository<TEntity> : DbSet<TEntity>, IRepository<TEntity> where TEntity : class, IEntity

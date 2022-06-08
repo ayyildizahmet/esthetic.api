@@ -1,7 +1,7 @@
 ﻿using AutoMapper;
-using MakeEat.Domain;
+using Esthetic.Domain;
 
-namespace MakeEat.Model.Mapper
+namespace Esthetic.Model.Mapper
 {
     public class MapperSettings : Profile
     {

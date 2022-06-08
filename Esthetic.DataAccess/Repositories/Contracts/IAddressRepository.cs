@@ -1,7 +1,7 @@
-﻿using MakeEat.Core.Contracts.RepositoryBase;
-using MakeEat.Domain;
+﻿using Esthetic.Core.Contracts.RepositoryBase;
+using Esthetic.Domain;
 
-namespace MakeEat.DataAccess.Repositories.Contracts
+namespace Esthetic.DataAccess.Repositories.Contracts
 {
     public interface IAddressRepository : IRepository<Address>
     {

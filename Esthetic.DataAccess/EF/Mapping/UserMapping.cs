@@ -1,8 +1,8 @@
-﻿using MakeEat.Domain;
+﻿using Esthetic.Domain;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
-namespace MakeEat.DataAccess.EF.Mapping
+namespace Esthetic.DataAccess.EF.Mapping
 {
     public class UserMapping : IEntityTypeConfiguration<User>
     {
@@ -14,6 +14,7 @@ namespace MakeEat.DataAccess.EF.Mapping
             builder.Property(c => c.LastName).HasMaxLength(100).IsRequired();
             builder.Property(c => c.Email).HasMaxLength(100).IsRequired();
             builder.Property(c => c.Phone).HasMaxLength(10).IsRequired();
+            builder.Property(c => c.CountryCode).HasMaxLength(5).IsRequired();
             builder.Property(c => c.PasswordHash).IsRequired();
             builder.Property(c => c.PasswordSalt).IsRequired();
         }

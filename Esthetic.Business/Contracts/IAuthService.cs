@@ -1,9 +1,9 @@
 ﻿using System;
-using MakeEat.Core.Contracts.ServiceBase;
-using MakeEat.Domain;
-using MakeEat.Model;
+using Esthetic.Core.Contracts.ServiceBase;
+using Esthetic.Domain;
+using Esthetic.Model;
 
-namespace MakeEat.Service.Contracts
+namespace Esthetic.Service.Contracts
 {
     public interface IAuthService : IService
     {

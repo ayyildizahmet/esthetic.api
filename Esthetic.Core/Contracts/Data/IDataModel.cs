@@ -1,4 +1,4 @@
-﻿namespace MakeEat.Core.Contracts.Data
+﻿namespace Esthetic.Core.Contracts.Data
 {
     public interface IDataModel
     {

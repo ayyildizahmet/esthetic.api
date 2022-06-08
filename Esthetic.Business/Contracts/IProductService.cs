@@ -1,6 +1,6 @@
-﻿using MakeEat.Core.Contracts.ServiceBase;
+﻿using Esthetic.Core.Contracts.ServiceBase;
 
-namespace MakeEat.Service.Contracts
+namespace Esthetic.Service.Contracts
 {
     public interface IProductService : IService
     {

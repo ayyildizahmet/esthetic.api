@@ -1,6 +1,6 @@
-﻿using MakeEat.Core.Contracts.Data;
+﻿using Esthetic.Core.Contracts.Data;
 
-namespace MakeEat.Model
+namespace Esthetic.Model
 {
     public class TokenOptionsModel : IDataModel
     {

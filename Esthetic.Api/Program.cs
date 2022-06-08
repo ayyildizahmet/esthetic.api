@@ -1,7 +1,7 @@
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Hosting;
 
-namespace MakeEat.Api
+namespace Esthetic.Api
 {
     public class Program
     {

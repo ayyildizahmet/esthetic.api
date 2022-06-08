@@ -1,13 +1,13 @@
 ﻿using System;
 using System.Linq;
-using MakeEat.Core.Contracts.Data;
-using MakeEat.Core.Contracts.EntityBase;
-using MakeEat.DataAccess.EF.Mapping;
-using MakeEat.Domain;
+using Esthetic.Core.Contracts.Data;
+using Esthetic.Core.Contracts.EntityBase;
+using Esthetic.DataAccess.EF.Mapping;
+using Esthetic.Domain;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.ChangeTracking;
 
-namespace MakeEat.DataAccess.EF
+namespace Esthetic.DataAccess.EF
 {
     public class Context : DbContext, IDbContext
     {
@@ -20,7 +20,6 @@ namespace MakeEat.DataAccess.EF
         public DbSet<City> Cities { get; set; }
         public DbSet<District> Districts { get; set; }
         public DbSet<Category> Categories { get; set; }
-        public DbSet<ImageType> ImageType { get; set; }
         public DbSet<Image> Image { get; set; }
         public DbSet<Company> Company { get; set; }
         public DbSet<Branch> Branch { get; set; }
@@ -32,7 +31,6 @@ namespace MakeEat.DataAccess.EF
             modelBuilder.ApplyConfiguration(new CityMapping());
             modelBuilder.ApplyConfiguration(new DistrictMapping());
             modelBuilder.ApplyConfiguration(new CategoryMapping());
-            modelBuilder.ApplyConfiguration(new ImageTypeMapping());
             modelBuilder.ApplyConfiguration(new ImageMapping());
             modelBuilder.ApplyConfiguration(new CompanyMapping());
             modelBuilder.ApplyConfiguration(new BranchMapping());
@@ -81,9 +79,17 @@ namespace MakeEat.DataAccess.EF
 
         public static void PopulateData(ModelBuilder modelBuilder)
         {
-            //modelBuilder.Entity<User>().HasData(
-            //    new User { Id = 1, FirstName = "Ahmet", LastName = "Ayyıldız", Email = "ahmet.ayyildiz@windowslive.com", Phone = "5053242052", }
+            //modelbuilder.entity<user>().hasdata(
+            //    new user { id = 1, firstname = "ahmet", lastname = "ayyıldız", email = "ahmet.ayyildiz@windowslive.com", phone = "5053242052", }
             //);
+            modelBuilder.Entity<Company>().HasData(
+                new Company { Id = 1, Name = "Akl Poliklinik", LogoUrl= "http://ayyildiz.xyz:8070/company/akl.png", CreatedDate = DateTime.Now, ModifiedDate = DateTime.Now },
+                new Company { Id = 2, Name = "Medeks Hair Center", LogoUrl = "http://ayyildiz.xyz:8070/company/medeks.png", CreatedDate = DateTime.Now, ModifiedDate = DateTime.Now },
+                new Company { Id = 3, Name = "Asuman Hair Transplant Clinic", LogoUrl = "http://ayyildiz.xyz:8070/company/asuman.png", CreatedDate = DateTime.Now, ModifiedDate = DateTime.Now },
+                new Company { Id = 4, Name = "Esteworld", LogoUrl = "http://ayyildiz.xyz:8070/company/esteworld.png", CreatedDate = DateTime.Now, ModifiedDate = DateTime.Now },
+                new Company { Id = 5, Name = "Maya Estetik", LogoUrl = "http://ayyildiz.xyz:8070/company/maya.png", CreatedDate = DateTime.Now, ModifiedDate = DateTime.Now },
+                new Company { Id = 6, Name = "Este Place", LogoUrl = "http://ayyildiz.xyz:8070/company/esteplace.png", CreatedDate = DateTime.Now, ModifiedDate = DateTime.Now }
+            );
 
             modelBuilder.Entity<City>().HasData(
                 new City { Id = 1, Name = "Ankara", Code = "06", CreatedDate = DateTime.Now, ModifiedDate = DateTime.Now },
@@ -92,7 +98,8 @@ namespace MakeEat.DataAccess.EF
 
             modelBuilder.Entity<District>().HasData(
                 new District { Id = 1, CityId = 2, Name = "Üsküdar", CreatedDate = DateTime.Now, ModifiedDate = DateTime.Now },
-                new District { Id = 2, CityId = 2, Name = "Kadıköy", CreatedDate = DateTime.Now, ModifiedDate = DateTime.Now }
+                new District { Id = 2, CityId = 2, Name = "Kadıköy", CreatedDate = DateTime.Now, ModifiedDate = DateTime.Now },
+                new District { Id = 3, CityId = 2, Name = "Ataşehir", CreatedDate = DateTime.Now, ModifiedDate = DateTime.Now }
             );
         }
 

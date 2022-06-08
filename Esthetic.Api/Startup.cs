@@ -3,15 +3,15 @@ using System.Text;
 using Esthetic.Core.Contracts.Utilities;
 using Esthetic.Utility;
 using FluentValidation.AspNetCore;
-using MakeEat.Core.Contracts.Data;
-using MakeEat.Core.Contracts.UnitOfWork;
-using MakeEat.DataAccess.EF;
-using MakeEat.DataAccess.Repositories;
-using MakeEat.DataAccess.Repositories.Contracts;
-using MakeEat.Model;
-using MakeEat.Service;
-using MakeEat.Service.Contracts;
-using MakeEat.Utility.Token;
+using Esthetic.Core.Contracts.Data;
+using Esthetic.Core.Contracts.UnitOfWork;
+using Esthetic.DataAccess.EF;
+using Esthetic.DataAccess.Repositories;
+using Esthetic.DataAccess.Repositories.Contracts;
+using Esthetic.Model;
+using Esthetic.Service;
+using Esthetic.Service.Contracts;
+using Esthetic.Utility.Token;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
@@ -21,9 +21,9 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
+using Microsoft.AspNetCore.Http;
 
-
-namespace MakeEat.Api
+namespace Esthetic.Api
 {
     public class Startup
     {
@@ -44,11 +44,13 @@ namespace MakeEat.Api
             services.AddTransient<IAuthService, AuthService>();
             services.AddTransient<IUserService, UserService>();
             services.AddTransient<IAddressService, AddressService>();
+            services.AddTransient<ICompanyService, CompanyService>();
 
             services.AddTransient<ICityRepository, CityRepository>();
             services.AddTransient<IAddressRepository, AddressRepository>();
             services.AddTransient<IUserRepository, UserRepository>();
-            
+            services.AddTransient<ICompanyRepository, CompanyRepository>();
+
             services.AddTransient<ITokenHelper, JwtHelper>();
             services.AddScoped<IUnitOfWork, UnitOfWork>();
 
@@ -122,6 +124,10 @@ namespace MakeEat.Api
             app.UseEndpoints(endpoints =>
             {
                 endpoints.MapControllers();
+            });
+            app.Run(async (context) =>
+            {
+                await context.Response.WriteAsync("MVC didn't find anything!");
             });
 
             

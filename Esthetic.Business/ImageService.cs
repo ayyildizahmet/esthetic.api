@@ -1,7 +1,7 @@
-﻿using MakeEat.Core.Contracts.UnitOfWork;
-using MakeEat.Service.Contracts;
+﻿using Esthetic.Core.Contracts.UnitOfWork;
+using Esthetic.Service.Contracts;
 
-namespace MakeEat.Service
+namespace Esthetic.Service
 {
     public class ImageService : Core.Contracts.ServiceBase.Service, IImageService
     {

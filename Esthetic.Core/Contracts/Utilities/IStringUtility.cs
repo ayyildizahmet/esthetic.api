@@ -1,4 +1,4 @@
-﻿using MakeEat.Core.Contracts.Utilities;
+﻿using Esthetic.Core.Contracts.Utilities;
 
 namespace Esthetic.Core.Contracts.Utilities
 {

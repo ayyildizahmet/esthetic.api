@@ -1,11 +1,11 @@
 ﻿using System;
 using System.Threading.Tasks;
 using System.Transactions;
-using MakeEat.Core.Contracts.Data;
+using Esthetic.Core.Contracts.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Storage;
 
-namespace MakeEat.Core.Contracts.UnitOfWork
+namespace Esthetic.Core.Contracts.UnitOfWork
 {
     public class UnitOfWork<TContext> : UnitOfWork, IUnitOfWork<TContext> where TContext : DbContext, IDbContext
     {

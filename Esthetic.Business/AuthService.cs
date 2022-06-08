@@ -1,11 +1,11 @@
 ﻿using AutoMapper;
 using Esthetic.Core.Contracts.Utilities;
-using MakeEat.Model;
-using MakeEat.Service.Contracts;
-using MakeEat.Utility.Security;
-using MakeEat.Utility.Token;
+using Esthetic.Model;
+using Esthetic.Service.Contracts;
+using Esthetic.Utility.Security;
+using Esthetic.Utility.Token;
 
-namespace MakeEat.Service
+namespace Esthetic.Service
 {
     public class AuthService : Core.Contracts.ServiceBase.Service, IAuthService
     {

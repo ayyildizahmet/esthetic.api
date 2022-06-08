@@ -4,13 +4,13 @@ using System.IdentityModel.Tokens.Jwt;
 using System.Linq;
 using System.Security.Claims;
 using System.Text;
-using MakeEat.Domain;
-using MakeEat.Model;
+using Esthetic.Domain;
+using Esthetic.Model;
 using Microsoft.Extensions.Configuration;
 using Microsoft.IdentityModel.Tokens;
 
 
-namespace MakeEat.Utility.Token
+namespace Esthetic.Utility.Token
 {
     public class JwtHelper : ITokenHelper
     {

@@ -1,6 +1,7 @@
-﻿using MakeEat.Core.Contracts.EntityBase;
+﻿using Esthetic.Core.Contracts.EntityBase;
+using Esthetic.Core.Contracts.Enums;
 
-namespace MakeEat.Domain
+namespace Esthetic.Domain
 {
     public class Image : Entity<int>
     {
@@ -8,6 +9,9 @@ namespace MakeEat.Domain
         public string Url { get; set; }
         public byte[] Data { get; set; }
         public int ImageTypeId { get; set; }
+        public int Width { get; set; }
+        public int Height { get; set; }
         public ImageType ImageType { get; set; }
+        public ImageCategoryType ImageCategoryType { get; set; }
     }
 }

@@ -1,4 +1,4 @@
-﻿namespace MakeEat.Core.Contracts.Utilities
+﻿namespace Esthetic.Core.Contracts.Utilities
 {
     public interface IUtility
     {

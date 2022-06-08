@@ -1,6 +1,6 @@
 using System;
 
-namespace MakeEat.Api
+namespace Esthetic.Api
 {
     public class WeatherForecast
     {

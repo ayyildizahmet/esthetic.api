@@ -4,7 +4,7 @@ using System.Transactions;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Storage;
 
-namespace MakeEat.Core.Contracts.UnitOfWork
+namespace Esthetic.Core.Contracts.UnitOfWork
 {
     public interface IUnitOfWork<TContext> : IUnitOfWork where TContext : DbContext
     {

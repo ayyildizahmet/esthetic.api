@@ -1,13 +1,13 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
 using AutoMapper;
-using MakeEat.Core.Contracts.UnitOfWork;
-using MakeEat.DataAccess.Repositories.Contracts;
-using MakeEat.Domain;
-using MakeEat.Model;
-using MakeEat.Service.Contracts;
+using Esthetic.Core.Contracts.UnitOfWork;
+using Esthetic.DataAccess.Repositories.Contracts;
+using Esthetic.Domain;
+using Esthetic.Model;
+using Esthetic.Service.Contracts;
 
-namespace MakeEat.Service
+namespace Esthetic.Service
 {
     public class UserService : Core.Contracts.ServiceBase.Service, IUserService
     {

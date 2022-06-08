@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace MakeEat.Test
+namespace Esthetic.Test
 {
     class Program
     {

@@ -1,4 +1,4 @@
-﻿namespace MakeEat.Domain
+﻿namespace Esthetic.Domain
 {
     public class OperationClaim
     {

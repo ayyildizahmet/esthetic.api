@@ -1,6 +1,6 @@
-﻿using MakeEat.Core.Contracts.EntityBase;
+﻿using Esthetic.Core.Contracts.EntityBase;
 
-namespace MakeEat.Domain
+namespace Esthetic.Domain
 {
     public class District : Entity<int>
     {

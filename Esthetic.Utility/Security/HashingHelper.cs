@@ -1,7 +1,7 @@
 ﻿using System.Linq;
 using System.Text;
 
-namespace MakeEat.Utility.Security
+namespace Esthetic.Utility.Security
 {
     public class HashingHelper
     {

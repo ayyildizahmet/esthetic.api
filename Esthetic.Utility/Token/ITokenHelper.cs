@@ -1,8 +1,8 @@
 ﻿using System.Collections.Generic;
-using MakeEat.Domain;
-using MakeEat.Model;
+using Esthetic.Domain;
+using Esthetic.Model;
 
-namespace MakeEat.Utility.Token
+namespace Esthetic.Utility.Token
 {
     public interface ITokenHelper
     {

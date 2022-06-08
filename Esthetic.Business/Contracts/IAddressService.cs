@@ -1,8 +1,8 @@
 ﻿using System.Collections.Generic;
-using MakeEat.Core.Contracts.ServiceBase;
-using MakeEat.Model;
+using Esthetic.Core.Contracts.ServiceBase;
+using Esthetic.Model;
 
-namespace MakeEat.Service.Contracts
+namespace Esthetic.Service.Contracts
 {
     public interface IAddressService : IService
     {

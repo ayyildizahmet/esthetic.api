@@ -1,7 +1,7 @@
 ﻿using System.Runtime.Serialization;
-using MakeEat.Core.Contracts.Data;
+using Esthetic.Core.Contracts.Data;
 
-namespace MakeEat.Model
+namespace Esthetic.Model
 {
     public class ResponseModel<T>:IDataModel
     {

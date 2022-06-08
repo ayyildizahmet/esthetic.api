@@ -1,10 +1,10 @@
 ﻿using System.IO;
-using MakeEat.DataAccess.EF;
+using Esthetic.DataAccess.EF;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Design;
 using Microsoft.Extensions.Configuration;
 
-namespace MakeEat.Test
+namespace Esthetic.Test
 {
     public class DesignTimeDbContextFactory : IDesignTimeDbContextFactory<Context>
     {

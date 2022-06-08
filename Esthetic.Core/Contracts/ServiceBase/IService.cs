@@ -1,5 +1,5 @@
 ﻿
-namespace MakeEat.Core.Contracts.ServiceBase
+namespace Esthetic.Core.Contracts.ServiceBase
 {
     public interface IService
     {

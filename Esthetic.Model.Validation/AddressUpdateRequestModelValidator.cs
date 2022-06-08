@@ -1,7 +1,7 @@
 ﻿using System;
 using FluentValidation;
 
-namespace MakeEat.Model.Validation
+namespace Esthetic.Model.Validation
 {
     public class AddressUpdateRequestModelValidator : AbstractValidator<AddressUpdateRequestModel>
     {

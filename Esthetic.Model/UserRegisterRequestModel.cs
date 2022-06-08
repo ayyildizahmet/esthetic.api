@@ -1,6 +1,6 @@
-﻿using MakeEat.Core.Contracts.Data;
+﻿using Esthetic.Core.Contracts.Data;
 
-namespace MakeEat.Model
+namespace Esthetic.Model
 {
     public class UserRegisterRequestModel : IDataModel
     {
@@ -8,6 +8,7 @@ namespace MakeEat.Model
         public string FirstName { get; set; }
         public string LastName { get; set; }
         public string Phone { get; set; }
+        public string CountryCode { get; set; }
         public string Password { get; set; }
         
     }

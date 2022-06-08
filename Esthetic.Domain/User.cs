@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
-using MakeEat.Core.Contracts.EntityBase;
+using Esthetic.Core.Contracts.EntityBase;
 
-namespace MakeEat.Domain
+namespace Esthetic.Domain
 {
     public class User:Entity<int>
     {
@@ -9,6 +9,7 @@ namespace MakeEat.Domain
         public string FirstName { get; set; }
         public string LastName { get; set; }
         public string Phone { get; set; }
+        public string CountryCode { get; set; }
         public byte[] PasswordSalt { get; set; }
         public byte[] PasswordHash { get; set; }
         public virtual List<Address> Addresses { get; set; }

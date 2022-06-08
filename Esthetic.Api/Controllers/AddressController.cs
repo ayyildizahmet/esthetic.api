@@ -1,12 +1,12 @@
 ﻿using System;
 using System.Collections.Generic;
-using MakeEat.Model;
-using MakeEat.Model.Validation;
-using MakeEat.Service.Contracts;
+using Esthetic.Model;
+using Esthetic.Model.Validation;
+using Esthetic.Service.Contracts;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
-namespace MakeEat.Api.Controllers
+namespace Esthetic.Api.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]

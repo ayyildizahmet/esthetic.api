@@ -20,9 +20,12 @@ namespace Esthetic.DataAccess.EF
         public DbSet<City> Cities { get; set; }
         public DbSet<District> Districts { get; set; }
         public DbSet<Category> Categories { get; set; }
-        public DbSet<Image> Image { get; set; }
-        public DbSet<Company> Company { get; set; }
-        public DbSet<Branch> Branch { get; set; }
+        public DbSet<Image> Images { get; set; }
+        public DbSet<PostMedia> PostMedias { get; set; }
+        public DbSet<OperationType> OperationTypes { get; set; }
+        public DbSet<Post> Posts { get; set; }
+        public DbSet<Company> Companies { get; set; }
+        public DbSet<Branch> Branches { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
@@ -32,8 +35,11 @@ namespace Esthetic.DataAccess.EF
             modelBuilder.ApplyConfiguration(new DistrictMapping());
             modelBuilder.ApplyConfiguration(new CategoryMapping());
             modelBuilder.ApplyConfiguration(new ImageMapping());
+            modelBuilder.ApplyConfiguration(new PostMediaMapping());
+            modelBuilder.ApplyConfiguration(new PostMapping());
             modelBuilder.ApplyConfiguration(new CompanyMapping());
             modelBuilder.ApplyConfiguration(new BranchMapping());
+            modelBuilder.ApplyConfiguration(new OperationTypeMapping());
 
             foreach (var relationship in modelBuilder.Model.GetEntityTypes().SelectMany(e => e.GetForeignKeys()))
             {
@@ -83,12 +89,20 @@ namespace Esthetic.DataAccess.EF
             //    new user { id = 1, firstname = "ahmet", lastname = "ayyıldız", email = "ahmet.ayyildiz@windowslive.com", phone = "5053242052", }
             //);
             modelBuilder.Entity<Company>().HasData(
-                new Company { Id = 1, Name = "Akl Poliklinik", LogoUrl= "http://ayyildiz.xyz:8070/company/akl.png", CreatedDate = DateTime.Now, ModifiedDate = DateTime.Now },
+                new Company { Id = 1, Name = "Akl Poliklinik", LogoUrl = "http://ayyildiz.xyz:8070/company/akl.png", CreatedDate = DateTime.Now, ModifiedDate = DateTime.Now },
                 new Company { Id = 2, Name = "Medeks Hair Center", LogoUrl = "http://ayyildiz.xyz:8070/company/medeks.png", CreatedDate = DateTime.Now, ModifiedDate = DateTime.Now },
                 new Company { Id = 3, Name = "Asuman Hair Transplant Clinic", LogoUrl = "http://ayyildiz.xyz:8070/company/asuman.png", CreatedDate = DateTime.Now, ModifiedDate = DateTime.Now },
                 new Company { Id = 4, Name = "Esteworld", LogoUrl = "http://ayyildiz.xyz:8070/company/esteworld.png", CreatedDate = DateTime.Now, ModifiedDate = DateTime.Now },
                 new Company { Id = 5, Name = "Maya Estetik", LogoUrl = "http://ayyildiz.xyz:8070/company/maya.png", CreatedDate = DateTime.Now, ModifiedDate = DateTime.Now },
                 new Company { Id = 6, Name = "Este Place", LogoUrl = "http://ayyildiz.xyz:8070/company/esteplace.png", CreatedDate = DateTime.Now, ModifiedDate = DateTime.Now }
+            );
+
+            modelBuilder.Entity<OperationType>().HasData(
+                new District { Id = 1, Name = "Saç Ekimi", CreatedDate = DateTime.Now, ModifiedDate = DateTime.Now },
+                new District { Id = 2, Name = "Kök Hücre Tedavisi", CreatedDate = DateTime.Now, ModifiedDate = DateTime.Now },
+                new District { Id = 3, Name = "P.R.P", CreatedDate = DateTime.Now, ModifiedDate = DateTime.Now },
+                new District { Id = 4, Name = "Botoks", CreatedDate = DateTime.Now, ModifiedDate = DateTime.Now },
+                new District { Id = 5, Name = "Lazer Epilasyon", CreatedDate = DateTime.Now, ModifiedDate = DateTime.Now }
             );
 
             modelBuilder.Entity<City>().HasData(

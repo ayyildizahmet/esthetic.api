@@ -11,14 +11,14 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Esthetic.DataAccess.Migrations
 {
     [DbContext(typeof(Context))]
-    [Migration("20220423214604_setup")]
-    partial class setup
+    [Migration("20220609202629_setup3")]
+    partial class setup3
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
-                .HasAnnotation("ProductVersion", "6.0.4")
+                .HasAnnotation("ProductVersion", "6.0.5")
                 .HasAnnotation("Relational:MaxIdentifierLength", 64);
 
             modelBuilder.Entity("Esthetic.Domain.Address", b =>
@@ -75,6 +75,41 @@ namespace Esthetic.DataAccess.Migrations
                     b.HasIndex("UserId");
 
                     b.ToTable("Address", (string)null);
+                });
+
+            modelBuilder.Entity("Esthetic.Domain.Branch", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    b.Property<int?>("AddressId")
+                        .HasColumnType("int");
+
+                    b.Property<int?>("CompanyId")
+                        .HasColumnType("int");
+
+                    b.Property<DateTime>("CreatedDate")
+                        .HasColumnType("datetime(6)");
+
+                    b.Property<DateTime?>("ModifiedDate")
+                        .HasColumnType("datetime(6)");
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasMaxLength(100)
+                        .HasColumnType("varchar(100)");
+
+                    b.Property<int>("State")
+                        .HasColumnType("int");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("AddressId");
+
+                    b.HasIndex("CompanyId");
+
+                    b.ToTable("Branch", (string)null);
                 });
 
             modelBuilder.Entity("Esthetic.Domain.Category", b =>
@@ -139,8 +174,8 @@ namespace Esthetic.DataAccess.Migrations
                         {
                             Id = 1,
                             Code = "06",
-                            CreatedDate = new DateTime(2022, 4, 24, 0, 46, 4, 516, DateTimeKind.Local).AddTicks(493),
-                            ModifiedDate = new DateTime(2022, 4, 24, 0, 46, 4, 516, DateTimeKind.Local).AddTicks(503),
+                            CreatedDate = new DateTime(2022, 6, 9, 23, 26, 28, 680, DateTimeKind.Local).AddTicks(139),
+                            ModifiedDate = new DateTime(2022, 6, 9, 23, 26, 28, 680, DateTimeKind.Local).AddTicks(140),
                             Name = "Ankara",
                             State = 1
                         },
@@ -148,9 +183,95 @@ namespace Esthetic.DataAccess.Migrations
                         {
                             Id = 2,
                             Code = "34",
-                            CreatedDate = new DateTime(2022, 4, 24, 0, 46, 4, 516, DateTimeKind.Local).AddTicks(507),
-                            ModifiedDate = new DateTime(2022, 4, 24, 0, 46, 4, 516, DateTimeKind.Local).AddTicks(507),
+                            CreatedDate = new DateTime(2022, 6, 9, 23, 26, 28, 680, DateTimeKind.Local).AddTicks(141),
+                            ModifiedDate = new DateTime(2022, 6, 9, 23, 26, 28, 680, DateTimeKind.Local).AddTicks(142),
                             Name = "İstanbul",
+                            State = 1
+                        });
+                });
+
+            modelBuilder.Entity("Esthetic.Domain.Company", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    b.Property<DateTime>("CreatedDate")
+                        .HasColumnType("datetime(6)");
+
+                    b.Property<string>("LogoUrl")
+                        .IsRequired()
+                        .HasMaxLength(250)
+                        .HasColumnType("varchar(250)");
+
+                    b.Property<DateTime?>("ModifiedDate")
+                        .HasColumnType("datetime(6)");
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasMaxLength(250)
+                        .HasColumnType("varchar(250)");
+
+                    b.Property<int>("State")
+                        .HasColumnType("int");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Company", (string)null);
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 1,
+                            CreatedDate = new DateTime(2022, 6, 9, 23, 26, 28, 680, DateTimeKind.Local).AddTicks(6),
+                            LogoUrl = "http://ayyildiz.xyz:8070/company/akl.png",
+                            ModifiedDate = new DateTime(2022, 6, 9, 23, 26, 28, 680, DateTimeKind.Local).AddTicks(17),
+                            Name = "Akl Poliklinik",
+                            State = 1
+                        },
+                        new
+                        {
+                            Id = 2,
+                            CreatedDate = new DateTime(2022, 6, 9, 23, 26, 28, 680, DateTimeKind.Local).AddTicks(21),
+                            LogoUrl = "http://ayyildiz.xyz:8070/company/medeks.png",
+                            ModifiedDate = new DateTime(2022, 6, 9, 23, 26, 28, 680, DateTimeKind.Local).AddTicks(21),
+                            Name = "Medeks Hair Center",
+                            State = 1
+                        },
+                        new
+                        {
+                            Id = 3,
+                            CreatedDate = new DateTime(2022, 6, 9, 23, 26, 28, 680, DateTimeKind.Local).AddTicks(22),
+                            LogoUrl = "http://ayyildiz.xyz:8070/company/asuman.png",
+                            ModifiedDate = new DateTime(2022, 6, 9, 23, 26, 28, 680, DateTimeKind.Local).AddTicks(23),
+                            Name = "Asuman Hair Transplant Clinic",
+                            State = 1
+                        },
+                        new
+                        {
+                            Id = 4,
+                            CreatedDate = new DateTime(2022, 6, 9, 23, 26, 28, 680, DateTimeKind.Local).AddTicks(24),
+                            LogoUrl = "http://ayyildiz.xyz:8070/company/esteworld.png",
+                            ModifiedDate = new DateTime(2022, 6, 9, 23, 26, 28, 680, DateTimeKind.Local).AddTicks(24),
+                            Name = "Esteworld",
+                            State = 1
+                        },
+                        new
+                        {
+                            Id = 5,
+                            CreatedDate = new DateTime(2022, 6, 9, 23, 26, 28, 680, DateTimeKind.Local).AddTicks(25),
+                            LogoUrl = "http://ayyildiz.xyz:8070/company/maya.png",
+                            ModifiedDate = new DateTime(2022, 6, 9, 23, 26, 28, 680, DateTimeKind.Local).AddTicks(25),
+                            Name = "Maya Estetik",
+                            State = 1
+                        },
+                        new
+                        {
+                            Id = 6,
+                            CreatedDate = new DateTime(2022, 6, 9, 23, 26, 28, 680, DateTimeKind.Local).AddTicks(26),
+                            LogoUrl = "http://ayyildiz.xyz:8070/company/esteplace.png",
+                            ModifiedDate = new DateTime(2022, 6, 9, 23, 26, 28, 680, DateTimeKind.Local).AddTicks(27),
+                            Name = "Este Place",
                             State = 1
                         });
                 });
@@ -189,8 +310,8 @@ namespace Esthetic.DataAccess.Migrations
                         {
                             Id = 1,
                             CityId = 2,
-                            CreatedDate = new DateTime(2022, 4, 24, 0, 46, 4, 516, DateTimeKind.Local).AddTicks(598),
-                            ModifiedDate = new DateTime(2022, 4, 24, 0, 46, 4, 516, DateTimeKind.Local).AddTicks(598),
+                            CreatedDate = new DateTime(2022, 6, 9, 23, 26, 28, 680, DateTimeKind.Local).AddTicks(154),
+                            ModifiedDate = new DateTime(2022, 6, 9, 23, 26, 28, 680, DateTimeKind.Local).AddTicks(154),
                             Name = "Üsküdar",
                             State = 1
                         },
@@ -198,9 +319,18 @@ namespace Esthetic.DataAccess.Migrations
                         {
                             Id = 2,
                             CityId = 2,
-                            CreatedDate = new DateTime(2022, 4, 24, 0, 46, 4, 516, DateTimeKind.Local).AddTicks(600),
-                            ModifiedDate = new DateTime(2022, 4, 24, 0, 46, 4, 516, DateTimeKind.Local).AddTicks(600),
+                            CreatedDate = new DateTime(2022, 6, 9, 23, 26, 28, 680, DateTimeKind.Local).AddTicks(156),
+                            ModifiedDate = new DateTime(2022, 6, 9, 23, 26, 28, 680, DateTimeKind.Local).AddTicks(156),
                             Name = "Kadıköy",
+                            State = 1
+                        },
+                        new
+                        {
+                            Id = 3,
+                            CityId = 2,
+                            CreatedDate = new DateTime(2022, 6, 9, 23, 26, 28, 680, DateTimeKind.Local).AddTicks(157),
+                            ModifiedDate = new DateTime(2022, 6, 9, 23, 26, 28, 680, DateTimeKind.Local).AddTicks(158),
+                            Name = "Ataşehir",
                             State = 1
                         });
                 });
@@ -218,6 +348,15 @@ namespace Esthetic.DataAccess.Migrations
                         .IsRequired()
                         .HasColumnType("longblob");
 
+                    b.Property<int>("Height")
+                        .HasColumnType("int");
+
+                    b.Property<int>("ImageCategoryType")
+                        .HasColumnType("int");
+
+                    b.Property<int>("ImageType")
+                        .HasColumnType("int");
+
                     b.Property<int>("ImageTypeId")
                         .HasColumnType("int");
 
@@ -229,64 +368,64 @@ namespace Esthetic.DataAccess.Migrations
                         .HasMaxLength(200)
                         .HasColumnType("varchar(200)");
 
-                    b.Property<int?>("ProductId")
-                        .HasColumnType("int");
-
                     b.Property<int>("State")
                         .HasColumnType("int");
 
                     b.Property<string>("Url")
                         .IsRequired()
-                        .HasMaxLength(500)
-                        .HasColumnType("varchar(500)");
+                        .HasMaxLength(200)
+                        .HasColumnType("varchar(200)");
+
+                    b.Property<int>("Width")
+                        .HasColumnType("int");
 
                     b.HasKey("Id");
-
-                    b.HasIndex("ImageTypeId");
-
-                    b.HasIndex("ProductId");
 
                     b.ToTable("Image", (string)null);
                 });
 
-            modelBuilder.Entity("Esthetic.Domain.ImageType", b =>
+            modelBuilder.Entity("Esthetic.Domain.ImagePost", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int");
 
+                    b.Property<int>("Content")
+                        .HasMaxLength(250)
+                        .HasColumnType("int");
+
                     b.Property<DateTime>("CreatedDate")
                         .HasColumnType("datetime(6)");
+
+                    b.Property<int>("Day")
+                        .HasColumnType("int");
+
+                    b.Property<int>("ImageId")
+                        .HasColumnType("int");
 
                     b.Property<DateTime?>("ModifiedDate")
                         .HasColumnType("datetime(6)");
 
-                    b.Property<string>("Name")
-                        .IsRequired()
-                        .HasMaxLength(200)
-                        .HasColumnType("varchar(200)");
+                    b.Property<int>("PostId")
+                        .HasColumnType("int");
 
                     b.Property<int>("State")
                         .HasColumnType("int");
 
                     b.HasKey("Id");
 
-                    b.ToTable("ImageType", (string)null);
+                    b.HasIndex("ImageId");
+
+                    b.HasIndex("PostId");
+
+                    b.ToTable("ImagePost", (string)null);
                 });
 
-            modelBuilder.Entity("Esthetic.Domain.Product", b =>
+            modelBuilder.Entity("Esthetic.Domain.OperationType", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int");
-
-                    b.Property<int>("CategoryId")
-                        .HasColumnType("int");
-
-                    b.Property<string>("Content")
-                        .IsRequired()
-                        .HasMaxLength(2000)
-                        .HasColumnType("varchar(2000)");
 
                     b.Property<DateTime>("CreatedDate")
                         .HasColumnType("datetime(6)");
@@ -296,22 +435,45 @@ namespace Esthetic.DataAccess.Migrations
 
                     b.Property<string>("Name")
                         .IsRequired()
-                        .HasMaxLength(200)
-                        .HasColumnType("varchar(200)");
+                        .HasMaxLength(100)
+                        .HasColumnType("varchar(100)");
 
                     b.Property<int>("State")
                         .HasColumnType("int");
 
-                    b.Property<string>("Title")
+                    b.HasKey("Id");
+
+                    b.ToTable("OperationType", (string)null);
+                });
+
+            modelBuilder.Entity("Esthetic.Domain.Post", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    b.Property<int?>("CompanyId")
+                        .HasColumnType("int");
+
+                    b.Property<DateTime>("CreatedDate")
+                        .HasColumnType("datetime(6)");
+
+                    b.Property<DateTime?>("ModifiedDate")
+                        .HasColumnType("datetime(6)");
+
+                    b.Property<string>("Name")
                         .IsRequired()
-                        .HasMaxLength(200)
-                        .HasColumnType("varchar(200)");
+                        .HasMaxLength(250)
+                        .HasColumnType("varchar(250)");
+
+                    b.Property<int>("State")
+                        .HasColumnType("int");
 
                     b.HasKey("Id");
 
-                    b.HasIndex("CategoryId");
+                    b.HasIndex("CompanyId");
 
-                    b.ToTable("Product", (string)null);
+                    b.ToTable("Post", (string)null);
                 });
 
             modelBuilder.Entity("Esthetic.Domain.User", b =>
@@ -319,6 +481,11 @@ namespace Esthetic.DataAccess.Migrations
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int");
+
+                    b.Property<string>("CountryCode")
+                        .IsRequired()
+                        .HasMaxLength(5)
+                        .HasColumnType("varchar(5)");
 
                     b.Property<DateTime>("CreatedDate")
                         .HasColumnType("datetime(6)");
@@ -389,6 +556,23 @@ namespace Esthetic.DataAccess.Migrations
                     b.Navigation("User");
                 });
 
+            modelBuilder.Entity("Esthetic.Domain.Branch", b =>
+                {
+                    b.HasOne("Esthetic.Domain.Address", "Address")
+                        .WithMany()
+                        .HasForeignKey("AddressId")
+                        .OnDelete(DeleteBehavior.Restrict);
+
+                    b.HasOne("Esthetic.Domain.Company", "Company")
+                        .WithMany("Branches")
+                        .HasForeignKey("CompanyId")
+                        .OnDelete(DeleteBehavior.Restrict);
+
+                    b.Navigation("Address");
+
+                    b.Navigation("Company");
+                });
+
             modelBuilder.Entity("Esthetic.Domain.District", b =>
                 {
                     b.HasOne("Esthetic.Domain.City", "City")
@@ -400,36 +584,33 @@ namespace Esthetic.DataAccess.Migrations
                     b.Navigation("City");
                 });
 
-            modelBuilder.Entity("Esthetic.Domain.Image", b =>
+            modelBuilder.Entity("Esthetic.Domain.ImagePost", b =>
                 {
-                    b.HasOne("Esthetic.Domain.ImageType", "ImageType")
+                    b.HasOne("Esthetic.Domain.Image", "Image")
                         .WithMany()
-                        .HasForeignKey("ImageTypeId")
+                        .HasForeignKey("ImageId")
                         .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
 
-                    b.HasOne("Esthetic.Domain.Product", null)
-                        .WithMany("Images")
-                        .HasForeignKey("ProductId")
+                    b.HasOne("Esthetic.Domain.Post", "Post")
+                        .WithMany("ImagePosts")
+                        .HasForeignKey("PostId")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
+
+                    b.Navigation("Image");
+
+                    b.Navigation("Post");
+                });
+
+            modelBuilder.Entity("Esthetic.Domain.Post", b =>
+                {
+                    b.HasOne("Esthetic.Domain.Company", "Company")
+                        .WithMany()
+                        .HasForeignKey("CompanyId")
                         .OnDelete(DeleteBehavior.Restrict);
 
-                    b.Navigation("ImageType");
-                });
-
-            modelBuilder.Entity("Esthetic.Domain.Product", b =>
-                {
-                    b.HasOne("Esthetic.Domain.Category", "Category")
-                        .WithMany("Products")
-                        .HasForeignKey("CategoryId")
-                        .OnDelete(DeleteBehavior.Restrict)
-                        .IsRequired();
-
-                    b.Navigation("Category");
-                });
-
-            modelBuilder.Entity("Esthetic.Domain.Category", b =>
-                {
-                    b.Navigation("Products");
+                    b.Navigation("Company");
                 });
 
             modelBuilder.Entity("Esthetic.Domain.City", b =>
@@ -437,9 +618,14 @@ namespace Esthetic.DataAccess.Migrations
                     b.Navigation("Districts");
                 });
 
-            modelBuilder.Entity("Esthetic.Domain.Product", b =>
+            modelBuilder.Entity("Esthetic.Domain.Company", b =>
                 {
-                    b.Navigation("Images");
+                    b.Navigation("Branches");
+                });
+
+            modelBuilder.Entity("Esthetic.Domain.Post", b =>
+                {
+                    b.Navigation("ImagePosts");
                 });
 
             modelBuilder.Entity("Esthetic.Domain.User", b =>

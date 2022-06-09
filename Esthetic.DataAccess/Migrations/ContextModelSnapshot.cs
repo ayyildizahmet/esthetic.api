@@ -172,8 +172,8 @@ namespace Esthetic.DataAccess.Migrations
                         {
                             Id = 1,
                             Code = "06",
-                            CreatedDate = new DateTime(2022, 6, 8, 20, 25, 13, 980, DateTimeKind.Local).AddTicks(6749),
-                            ModifiedDate = new DateTime(2022, 6, 8, 20, 25, 13, 980, DateTimeKind.Local).AddTicks(6749),
+                            CreatedDate = new DateTime(2022, 6, 9, 23, 41, 23, 411, DateTimeKind.Local).AddTicks(2154),
+                            ModifiedDate = new DateTime(2022, 6, 9, 23, 41, 23, 411, DateTimeKind.Local).AddTicks(2154),
                             Name = "Ankara",
                             State = 1
                         },
@@ -181,8 +181,8 @@ namespace Esthetic.DataAccess.Migrations
                         {
                             Id = 2,
                             Code = "34",
-                            CreatedDate = new DateTime(2022, 6, 8, 20, 25, 13, 980, DateTimeKind.Local).AddTicks(6751),
-                            ModifiedDate = new DateTime(2022, 6, 8, 20, 25, 13, 980, DateTimeKind.Local).AddTicks(6751),
+                            CreatedDate = new DateTime(2022, 6, 9, 23, 41, 23, 411, DateTimeKind.Local).AddTicks(2156),
+                            ModifiedDate = new DateTime(2022, 6, 9, 23, 41, 23, 411, DateTimeKind.Local).AddTicks(2156),
                             Name = "İstanbul",
                             State = 1
                         });
@@ -221,54 +221,54 @@ namespace Esthetic.DataAccess.Migrations
                         new
                         {
                             Id = 1,
-                            CreatedDate = new DateTime(2022, 6, 8, 20, 25, 13, 980, DateTimeKind.Local).AddTicks(6566),
+                            CreatedDate = new DateTime(2022, 6, 9, 23, 41, 23, 411, DateTimeKind.Local).AddTicks(2019),
                             LogoUrl = "http://ayyildiz.xyz:8070/company/akl.png",
-                            ModifiedDate = new DateTime(2022, 6, 8, 20, 25, 13, 980, DateTimeKind.Local).AddTicks(6582),
+                            ModifiedDate = new DateTime(2022, 6, 9, 23, 41, 23, 411, DateTimeKind.Local).AddTicks(2028),
                             Name = "Akl Poliklinik",
                             State = 1
                         },
                         new
                         {
                             Id = 2,
-                            CreatedDate = new DateTime(2022, 6, 8, 20, 25, 13, 980, DateTimeKind.Local).AddTicks(6586),
+                            CreatedDate = new DateTime(2022, 6, 9, 23, 41, 23, 411, DateTimeKind.Local).AddTicks(2032),
                             LogoUrl = "http://ayyildiz.xyz:8070/company/medeks.png",
-                            ModifiedDate = new DateTime(2022, 6, 8, 20, 25, 13, 980, DateTimeKind.Local).AddTicks(6587),
+                            ModifiedDate = new DateTime(2022, 6, 9, 23, 41, 23, 411, DateTimeKind.Local).AddTicks(2032),
                             Name = "Medeks Hair Center",
                             State = 1
                         },
                         new
                         {
                             Id = 3,
-                            CreatedDate = new DateTime(2022, 6, 8, 20, 25, 13, 980, DateTimeKind.Local).AddTicks(6588),
+                            CreatedDate = new DateTime(2022, 6, 9, 23, 41, 23, 411, DateTimeKind.Local).AddTicks(2033),
                             LogoUrl = "http://ayyildiz.xyz:8070/company/asuman.png",
-                            ModifiedDate = new DateTime(2022, 6, 8, 20, 25, 13, 980, DateTimeKind.Local).AddTicks(6589),
+                            ModifiedDate = new DateTime(2022, 6, 9, 23, 41, 23, 411, DateTimeKind.Local).AddTicks(2034),
                             Name = "Asuman Hair Transplant Clinic",
                             State = 1
                         },
                         new
                         {
                             Id = 4,
-                            CreatedDate = new DateTime(2022, 6, 8, 20, 25, 13, 980, DateTimeKind.Local).AddTicks(6590),
+                            CreatedDate = new DateTime(2022, 6, 9, 23, 41, 23, 411, DateTimeKind.Local).AddTicks(2034),
                             LogoUrl = "http://ayyildiz.xyz:8070/company/esteworld.png",
-                            ModifiedDate = new DateTime(2022, 6, 8, 20, 25, 13, 980, DateTimeKind.Local).AddTicks(6590),
+                            ModifiedDate = new DateTime(2022, 6, 9, 23, 41, 23, 411, DateTimeKind.Local).AddTicks(2035),
                             Name = "Esteworld",
                             State = 1
                         },
                         new
                         {
                             Id = 5,
-                            CreatedDate = new DateTime(2022, 6, 8, 20, 25, 13, 980, DateTimeKind.Local).AddTicks(6591),
+                            CreatedDate = new DateTime(2022, 6, 9, 23, 41, 23, 411, DateTimeKind.Local).AddTicks(2035),
                             LogoUrl = "http://ayyildiz.xyz:8070/company/maya.png",
-                            ModifiedDate = new DateTime(2022, 6, 8, 20, 25, 13, 980, DateTimeKind.Local).AddTicks(6592),
+                            ModifiedDate = new DateTime(2022, 6, 9, 23, 41, 23, 411, DateTimeKind.Local).AddTicks(2036),
                             Name = "Maya Estetik",
                             State = 1
                         },
                         new
                         {
                             Id = 6,
-                            CreatedDate = new DateTime(2022, 6, 8, 20, 25, 13, 980, DateTimeKind.Local).AddTicks(6593),
+                            CreatedDate = new DateTime(2022, 6, 9, 23, 41, 23, 411, DateTimeKind.Local).AddTicks(2037),
                             LogoUrl = "http://ayyildiz.xyz:8070/company/esteplace.png",
-                            ModifiedDate = new DateTime(2022, 6, 8, 20, 25, 13, 980, DateTimeKind.Local).AddTicks(6593),
+                            ModifiedDate = new DateTime(2022, 6, 9, 23, 41, 23, 411, DateTimeKind.Local).AddTicks(2037),
                             Name = "Este Place",
                             State = 1
                         });
@@ -308,8 +308,8 @@ namespace Esthetic.DataAccess.Migrations
                         {
                             Id = 1,
                             CityId = 2,
-                            CreatedDate = new DateTime(2022, 6, 8, 20, 25, 13, 980, DateTimeKind.Local).AddTicks(6766),
-                            ModifiedDate = new DateTime(2022, 6, 8, 20, 25, 13, 980, DateTimeKind.Local).AddTicks(6767),
+                            CreatedDate = new DateTime(2022, 6, 9, 23, 41, 23, 411, DateTimeKind.Local).AddTicks(2167),
+                            ModifiedDate = new DateTime(2022, 6, 9, 23, 41, 23, 411, DateTimeKind.Local).AddTicks(2167),
                             Name = "Üsküdar",
                             State = 1
                         },
@@ -317,8 +317,8 @@ namespace Esthetic.DataAccess.Migrations
                         {
                             Id = 2,
                             CityId = 2,
-                            CreatedDate = new DateTime(2022, 6, 8, 20, 25, 13, 980, DateTimeKind.Local).AddTicks(6768),
-                            ModifiedDate = new DateTime(2022, 6, 8, 20, 25, 13, 980, DateTimeKind.Local).AddTicks(6769),
+                            CreatedDate = new DateTime(2022, 6, 9, 23, 41, 23, 411, DateTimeKind.Local).AddTicks(2168),
+                            ModifiedDate = new DateTime(2022, 6, 9, 23, 41, 23, 411, DateTimeKind.Local).AddTicks(2168),
                             Name = "Kadıköy",
                             State = 1
                         },
@@ -326,8 +326,8 @@ namespace Esthetic.DataAccess.Migrations
                         {
                             Id = 3,
                             CityId = 2,
-                            CreatedDate = new DateTime(2022, 6, 8, 20, 25, 13, 980, DateTimeKind.Local).AddTicks(6770),
-                            ModifiedDate = new DateTime(2022, 6, 8, 20, 25, 13, 980, DateTimeKind.Local).AddTicks(6771),
+                            CreatedDate = new DateTime(2022, 6, 9, 23, 41, 23, 411, DateTimeKind.Local).AddTicks(2172),
+                            ModifiedDate = new DateTime(2022, 6, 9, 23, 41, 23, 411, DateTimeKind.Local).AddTicks(2173),
                             Name = "Ataşehir",
                             State = 1
                         });
@@ -371,8 +371,8 @@ namespace Esthetic.DataAccess.Migrations
 
                     b.Property<string>("Url")
                         .IsRequired()
-                        .HasMaxLength(500)
-                        .HasColumnType("varchar(500)");
+                        .HasMaxLength(200)
+                        .HasColumnType("varchar(200)");
 
                     b.Property<int>("Width")
                         .HasColumnType("int");
@@ -380,6 +380,145 @@ namespace Esthetic.DataAccess.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("Image", (string)null);
+                });
+
+            modelBuilder.Entity("Esthetic.Domain.OperationType", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    b.Property<DateTime>("CreatedDate")
+                        .HasColumnType("datetime(6)");
+
+                    b.Property<DateTime?>("ModifiedDate")
+                        .HasColumnType("datetime(6)");
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasMaxLength(100)
+                        .HasColumnType("varchar(100)");
+
+                    b.Property<int>("State")
+                        .HasColumnType("int");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("OperationType", (string)null);
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 1,
+                            CreatedDate = new DateTime(2022, 6, 9, 23, 41, 23, 411, DateTimeKind.Local).AddTicks(2134),
+                            ModifiedDate = new DateTime(2022, 6, 9, 23, 41, 23, 411, DateTimeKind.Local).AddTicks(2135),
+                            Name = "Saç Ekimi",
+                            State = 1
+                        },
+                        new
+                        {
+                            Id = 2,
+                            CreatedDate = new DateTime(2022, 6, 9, 23, 41, 23, 411, DateTimeKind.Local).AddTicks(2136),
+                            ModifiedDate = new DateTime(2022, 6, 9, 23, 41, 23, 411, DateTimeKind.Local).AddTicks(2136),
+                            Name = "Kök Hücre Tedavisi",
+                            State = 1
+                        },
+                        new
+                        {
+                            Id = 3,
+                            CreatedDate = new DateTime(2022, 6, 9, 23, 41, 23, 411, DateTimeKind.Local).AddTicks(2137),
+                            ModifiedDate = new DateTime(2022, 6, 9, 23, 41, 23, 411, DateTimeKind.Local).AddTicks(2137),
+                            Name = "P.R.P",
+                            State = 1
+                        },
+                        new
+                        {
+                            Id = 4,
+                            CreatedDate = new DateTime(2022, 6, 9, 23, 41, 23, 411, DateTimeKind.Local).AddTicks(2138),
+                            ModifiedDate = new DateTime(2022, 6, 9, 23, 41, 23, 411, DateTimeKind.Local).AddTicks(2139),
+                            Name = "Botoks",
+                            State = 1
+                        },
+                        new
+                        {
+                            Id = 5,
+                            CreatedDate = new DateTime(2022, 6, 9, 23, 41, 23, 411, DateTimeKind.Local).AddTicks(2140),
+                            ModifiedDate = new DateTime(2022, 6, 9, 23, 41, 23, 411, DateTimeKind.Local).AddTicks(2141),
+                            Name = "Lazer Epilasyon",
+                            State = 1
+                        });
+                });
+
+            modelBuilder.Entity("Esthetic.Domain.Post", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    b.Property<int?>("CompanyId")
+                        .HasColumnType("int");
+
+                    b.Property<DateTime>("CreatedDate")
+                        .HasColumnType("datetime(6)");
+
+                    b.Property<DateTime?>("ModifiedDate")
+                        .HasColumnType("datetime(6)");
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasMaxLength(250)
+                        .HasColumnType("varchar(250)");
+
+                    b.Property<int>("State")
+                        .HasColumnType("int");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("CompanyId");
+
+                    b.ToTable("Post", (string)null);
+                });
+
+            modelBuilder.Entity("Esthetic.Domain.PostMedia", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    b.Property<int>("Content")
+                        .HasMaxLength(250)
+                        .HasColumnType("int");
+
+                    b.Property<DateTime>("CreatedDate")
+                        .HasColumnType("datetime(6)");
+
+                    b.Property<int>("Day")
+                        .HasColumnType("int");
+
+                    b.Property<int?>("ImageId")
+                        .HasColumnType("int");
+
+                    b.Property<DateTime?>("ModifiedDate")
+                        .HasColumnType("datetime(6)");
+
+                    b.Property<int>("PostId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("State")
+                        .HasColumnType("int");
+
+                    b.Property<int?>("VideoId")
+                        .HasColumnType("int");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("ImageId");
+
+                    b.HasIndex("PostId");
+
+                    b.HasIndex("VideoId");
+
+                    b.ToTable("PostMedia", (string)null);
                 });
 
             modelBuilder.Entity("Esthetic.Domain.User", b =>
@@ -433,6 +572,32 @@ namespace Esthetic.DataAccess.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("User", (string)null);
+                });
+
+            modelBuilder.Entity("Esthetic.Domain.Video", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    b.Property<DateTime>("CreatedDate")
+                        .HasColumnType("datetime(6)");
+
+                    b.Property<DateTime?>("ModifiedDate")
+                        .HasColumnType("datetime(6)");
+
+                    b.Property<string>("Name")
+                        .HasColumnType("longtext");
+
+                    b.Property<int>("State")
+                        .HasColumnType("int");
+
+                    b.Property<string>("Url")
+                        .HasColumnType("longtext");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Video");
                 });
 
             modelBuilder.Entity("Esthetic.Domain.Address", b =>
@@ -490,6 +655,41 @@ namespace Esthetic.DataAccess.Migrations
                     b.Navigation("City");
                 });
 
+            modelBuilder.Entity("Esthetic.Domain.Post", b =>
+                {
+                    b.HasOne("Esthetic.Domain.Company", "Company")
+                        .WithMany()
+                        .HasForeignKey("CompanyId")
+                        .OnDelete(DeleteBehavior.Restrict);
+
+                    b.Navigation("Company");
+                });
+
+            modelBuilder.Entity("Esthetic.Domain.PostMedia", b =>
+                {
+                    b.HasOne("Esthetic.Domain.Image", "Image")
+                        .WithMany()
+                        .HasForeignKey("ImageId")
+                        .OnDelete(DeleteBehavior.Restrict);
+
+                    b.HasOne("Esthetic.Domain.Post", "Post")
+                        .WithMany("PostMedias")
+                        .HasForeignKey("PostId")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
+
+                    b.HasOne("Esthetic.Domain.Video", "Video")
+                        .WithMany()
+                        .HasForeignKey("VideoId")
+                        .OnDelete(DeleteBehavior.Restrict);
+
+                    b.Navigation("Image");
+
+                    b.Navigation("Post");
+
+                    b.Navigation("Video");
+                });
+
             modelBuilder.Entity("Esthetic.Domain.City", b =>
                 {
                     b.Navigation("Districts");
@@ -498,6 +698,11 @@ namespace Esthetic.DataAccess.Migrations
             modelBuilder.Entity("Esthetic.Domain.Company", b =>
                 {
                     b.Navigation("Branches");
+                });
+
+            modelBuilder.Entity("Esthetic.Domain.Post", b =>
+                {
+                    b.Navigation("PostMedias");
                 });
 
             modelBuilder.Entity("Esthetic.Domain.User", b =>

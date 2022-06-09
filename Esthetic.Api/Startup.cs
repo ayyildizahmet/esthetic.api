@@ -45,11 +45,13 @@ namespace Esthetic.Api
             services.AddTransient<IUserService, UserService>();
             services.AddTransient<IAddressService, AddressService>();
             services.AddTransient<ICompanyService, CompanyService>();
+            services.AddTransient<IOperationTypeService, OperationTypeService>();
 
             services.AddTransient<ICityRepository, CityRepository>();
             services.AddTransient<IAddressRepository, AddressRepository>();
             services.AddTransient<IUserRepository, UserRepository>();
             services.AddTransient<ICompanyRepository, CompanyRepository>();
+            services.AddTransient<IOperationTypeRepository, OperationTypeRepository>();
 
             services.AddTransient<ITokenHelper, JwtHelper>();
             services.AddScoped<IUnitOfWork, UnitOfWork>();

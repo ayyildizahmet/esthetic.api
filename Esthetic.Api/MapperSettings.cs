@@ -12,6 +12,7 @@ namespace Esthetic.Model.Mapper
             CreateMap<AddressUpdateRequestModel, Address>();
             CreateMap<AddressModel, Address>().ReverseMap();
             CreateMap<CompanyModel, Company>().ReverseMap();
+            CreateMap<OperationTypeModel, OperationType>().ReverseMap();
         }
     }
 }

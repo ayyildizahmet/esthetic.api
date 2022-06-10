@@ -1,9 +1,9 @@
-﻿using Esthetic.Core.Contracts.EntityBase;
+﻿using Esthetic.Core.Contracts.Data;
 using Esthetic.Core.Contracts.Enums;
 
-namespace Esthetic.Domain
+namespace Esthetic.Model
 {
-    public class PostMedia : Entity<int>
+    public class PostMediaModel : IDataModel
     {
         public int Day { get; set; }
         public int Content { get; set; }
@@ -11,8 +11,7 @@ namespace Esthetic.Domain
         public int? VideoId { get; set; }
         public int PostId { get; set; }
         public MediaType MediaType { get; set; }
-        public Image Image { get; set; }
-        public Video Video { get; set; }
-        public Post Post { get; set; }
+        public ImageModel Image { get; set; }
+        public VideoModel Video { get; set; }
     }
 }

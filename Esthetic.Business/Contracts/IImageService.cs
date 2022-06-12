@@ -9,6 +9,6 @@ namespace Esthetic.Service.Contracts
     {
         public Guid Upload(IFormFile image);
         public Image CreateImageToDatabase(IFormFile image);
-        public void CreateImageToFolder(IFormFile image);
+        public void CreateImageToFolder(Image image);
     }
 }

@@ -16,5 +16,8 @@ namespace Esthetic.Api
                 {
                     webBuilder.UseStartup<Startup>();
                 });
+
+
+         
     }
 }

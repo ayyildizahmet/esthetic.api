@@ -5,13 +5,16 @@ using Esthetic.Service.Contracts;
 using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.Hosting;
 using System;
+using System.Drawing.Imaging;
 using System.IO;
 using System.Threading.Tasks;
+
 
 namespace Esthetic.Service
 {
     public class ImageService : Core.Contracts.ServiceBase.Service, IImageService
     {
+        private const string folder_name = "\\uploads\\";
         private readonly IImageRepository _imageRepository;
         private readonly IUnitOfWork _unitOfWork;
         public static IHostEnvironment _environment;
@@ -27,6 +30,9 @@ namespace Esthetic.Service
         {
             //compress befores store
             var uploadedImage = CreateImageToDatabase(image);
+
+            CreateImageToFolder(uploadedImage);
+
             return uploadedImage.Id;
         }
 
@@ -42,31 +48,32 @@ namespace Esthetic.Service
                 {
                     Id = Guid.NewGuid(),
                     Data = imageBytes,
-                    Size = (int)(image.Length / 1024),
+                    Size = (int)(image.Length / (1024*1024)),
                     ImageType = Core.Contracts.Enums.ImageType.Jpeg,
                 };
+
                 _imageRepository.Add(imageObject);
                 _unitOfWork.SaveChanges();
                 return imageObject;
             }
 
-            throw new Exception("");
+            throw new Exception("Error occurred while saving file to database.");
         }
 
-        public void CreateImageToFolder(IFormFile image)
+        public void CreateImageToFolder(Image image)
         {
             try
             {
-                if (!Directory.Exists(_environment.ContentRootPath + "\\uploads\\"))
+                if (!Directory.Exists(_environment.ContentRootPath + folder_name))
                 {
-                    Directory.CreateDirectory(_environment.ContentRootPath + "\\uploads\\");
+                    Directory.CreateDirectory(_environment.ContentRootPath + folder_name);
                 }
-                using (FileStream filestream = File.Create(_environment.ContentRootPath + "\\uploads\\" + image.FileName))
+
+                using (System.Drawing.Image imagex = System.Drawing.Image.FromStream(new MemoryStream(image.Data)))
                 {
-                    image.CopyTo(filestream);
-                    filestream.Flush();
-                    //return Task.FromResult("\\uploads\\" + image.FileName);
+                    imagex.Save(_environment.ContentRootPath + "\\uploads\\" + image.Id.ToString() + ".jpg");
                 }
+
             }
             catch (Exception ex)
             {

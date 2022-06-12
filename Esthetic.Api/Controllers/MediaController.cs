@@ -27,6 +27,7 @@ namespace Esthetic.Api.Controllers
         }
 
         [HttpPost("upload")]
+        [DisableRequestSizeLimit]
         public Task<ResponseModel<Guid>> Upload(IFormFile file)
         {
             var response = new ResponseModel<Guid>();

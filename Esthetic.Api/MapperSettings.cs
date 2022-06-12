@@ -13,7 +13,7 @@ namespace Esthetic.Model.Mapper
             CreateMap<AddressModel, Address>().ReverseMap();
             CreateMap<CompanyModel, Company>().ReverseMap();
             CreateMap<OperationTypeModel, OperationType>().ReverseMap();
-            CreateMap<PostCreateRequestModel, Post>().ReverseMap();
+            CreateMap<PostModel, Post>().ReverseMap();
             CreateMap<PostMediaModel, PostMedia>().ReverseMap();
             CreateMap<ImageModel, Image>().ReverseMap();
             CreateMap<VideoModel, Video>().ReverseMap();

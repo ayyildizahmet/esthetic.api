@@ -1,9 +1,9 @@
 ﻿using Esthetic.Core.Contracts.EntityBase;
-using Esthetic.Core.Contracts.Enums;
+using System;
 
 namespace Esthetic.Domain
 {
-    public class Video : Entity<int>
+    public class Video : Entity<Guid>
     {
         public string Name { get; set; }
         public string Url { get; set; }

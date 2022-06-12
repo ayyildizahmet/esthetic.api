@@ -3,14 +3,12 @@ using Esthetic.Core.Contracts.Enums;
 
 namespace Esthetic.Domain
 {
-    public class Image : Entity<int>
+    public class Image : Entity<System.Guid>
     {
         public string Name { get; set; }
         public string Url { get; set; }
         public byte[] Data { get; set; }
-        public int ImageTypeId { get; set; }
-        public int Width { get; set; }
-        public int Height { get; set; }
+        public int  Size { get; set; }
         public ImageType ImageType { get; set; }
         public ImageCategoryType ImageCategoryType { get; set; }
     }

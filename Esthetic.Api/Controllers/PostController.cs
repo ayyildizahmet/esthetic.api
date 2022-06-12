@@ -10,9 +10,8 @@ namespace Esthetic.Api.Controllers
     //[Authorize]
     public class PostController : ControllerBase
     {
-
         [HttpPost]
-        public void Create([FromForm] PostCreateRequestModel post)
+        public void Create([FromForm]PostModel post)
         {
 
         }

@@ -48,6 +48,7 @@ namespace Esthetic.Api
             services.AddTransient<IOperationTypeService, OperationTypeService>();
             services.AddTransient<IPostService, PostService>();
             services.AddTransient<IPostMediaService, PostMediaService>();
+            services.AddTransient<IImageService, ImageService>();
 
             services.AddTransient<ICityRepository, CityRepository>();
             services.AddTransient<IAddressRepository, AddressRepository>();
@@ -56,11 +57,13 @@ namespace Esthetic.Api
             services.AddTransient<IOperationTypeRepository, OperationTypeRepository>();
             services.AddTransient<IPostRepository, PostRepository>();
             services.AddTransient<IPostMediaRepository, PostMediaRepository>();
+            services.AddTransient<IImageRepository, ImageRepository>();
 
             services.AddTransient<ITokenHelper, JwtHelper>();
             services.AddScoped<IUnitOfWork, UnitOfWork>();
 
             services.AddSingleton<IStringUtility, StringUtility>();
+            services.AddSingleton<IMediaUtility, MediaUtility>();
 
             services.AddAutoMapper(typeof(Startup));
             services.AddSwaggerGen(options => {

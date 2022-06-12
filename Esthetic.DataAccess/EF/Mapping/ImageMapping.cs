@@ -10,9 +10,13 @@ namespace Esthetic.DataAccess.EF.Mapping
         {
             builder.ToTable("Image");
             builder.HasKey(c => c.Id);
-            builder.Property(c => c.Name).HasMaxLength(200).IsRequired();
-            builder.Property(c => c.Url).HasMaxLength(200).IsRequired();
-            builder.Property(c => c.Data).IsRequired();
+            builder.Property(c => c.Name).HasMaxLength(200); //.IsRequired();
+            builder.Property(c => c.Url).HasMaxLength(200);  //.IsRequired();
+            builder.Property(c => c.Data).IsRequired().HasColumnType("MediumBlob");
+            builder.Property(c => c.Size).IsRequired();
+            builder.Property(c => c.ImageType).IsRequired();
+            builder.Property(c => c.ImageCategoryType);
+
         }
     }
 }

@@ -1,13 +1,13 @@
-﻿using Esthetic.Model;
-using Esthetic.Service.Contracts;
-using Microsoft.AspNetCore.Authorization;
+﻿using System;
+using Esthetic.Model;
+using Esthetic.Utility;
+using Esthetic.Core.Contracts.Enums;
 using Microsoft.AspNetCore.Cors;
-using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
-using System;
-using System.IO;
 using System.Threading.Tasks;
+using Esthetic.Service.Contracts;
+
 
 namespace Esthetic.Api.Controllers
 {
@@ -17,47 +17,51 @@ namespace Esthetic.Api.Controllers
     //[Authorize]
     public class MediaController : ControllerBase
     {
-        [Obsolete]
-        public static IHostingEnvironment _environment;
+        private readonly IImageService _imageService;
+        private readonly MediaUtility _mediaUtility;
 
-        [Obsolete]
-        public MediaController(IHostingEnvironment environment)
+        public MediaController(IImageService imageService)
         {
-            _environment = environment;
+            _mediaUtility = new MediaUtility();
+            _imageService = imageService;
         }
-        public class FIleUploadAPI
-        {
-            public IFormFile files { get; set; }
-        }
+
         [HttpPost("upload")]
-        [Obsolete]
-        public Task<string> Upload([FromBody]IFormFile file)
+        public Task<ResponseModel<Guid>> Upload(IFormFile file)
         {
-            if (file.Length > 0)
+            var response = new ResponseModel<Guid>();
+            if (file.Length > 0 && file.ContentType is not null)
             {
-                try
+                var mediaType = _mediaUtility.GetMediaType(file.ContentType);
+
+                if (mediaType is not null)
                 {
-                    if (!Directory.Exists(_environment.ContentRootPath + "\\uploads\\"))
+                    switch (mediaType)
                     {
-                        Directory.CreateDirectory(_environment.ContentRootPath + "\\uploads\\");
-                    }
-                    using (FileStream filestream = System.IO.File.Create(_environment.ContentRootPath + "\\uploads\\" + file.FileName))
-                    {
-                        file.CopyTo(filestream);
-                        filestream.Flush();
-                        return Task.FromResult("\\uploads\\" + file.FileName);
+                        case MediaType.Image:
+                            response.Data = _imageService.Upload(file);
+                            break;
+                        case MediaType.Video:
+                            Console.WriteLine("video service");
+                            break;
                     }
                 }
-                catch (Exception ex)
+                else
                 {
-                    return Task.FromResult(ex.ToString());
+                    response.Success = false;
+                    response.Message = "Unsupported media type.";
                 }
             }
             else
             {
-                return Task.FromResult("Unsuccessful");
+                response.Success = false;
+                response.Message = "Media cannot be null.";
             }
 
+            if (response.Success)
+                response.Message = "Media uploaded successfully.";
+
+            return Task.FromResult(response);
         }
     }
 }

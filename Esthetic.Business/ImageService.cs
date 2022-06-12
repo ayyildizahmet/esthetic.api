@@ -41,7 +41,7 @@ namespace Esthetic.Service
             if (image != null)
             {
                 using var dataStream = new MemoryStream();
-                image.CopyToAsync(dataStream);
+                image.CopyTo(dataStream);
                 byte[] imageBytes = dataStream.ToArray();
 
                 Image imageObject = new Image

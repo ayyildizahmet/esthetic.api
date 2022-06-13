@@ -8,7 +8,7 @@ namespace Esthetic.Domain
         public string Name { get; set; }
         public string Url { get; set; }
         public byte[] Data { get; set; }
-        public int  Size { get; set; }
+        public double Size { get; set; }
         public ImageType ImageType { get; set; }
         public ImageCategoryType ImageCategoryType { get; set; }
     }

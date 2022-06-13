@@ -29,26 +29,36 @@ namespace Esthetic.Service
         public Guid Upload(IFormFile image)
         {
             //compress befores store
-            var uploadedImage = CreateImageToDatabase(image);
+            try
+            {
+                if (image == null)
+                    throw new NullReferenceException();
 
-            CreateImageToFolder(uploadedImage);
+                var uploadedImage = CreateImageToDatabase(image);
 
-            return uploadedImage.Id;
+                CreateImageToFolder(uploadedImage);
+
+                return uploadedImage.Id;
+            }
+            catch (Exception ex)
+            {
+                throw new Exception("Error occurred while uploading file. Error = " + ex.Message);
+            }
         }
 
         public Image CreateImageToDatabase(IFormFile image)
         {
-            if (image != null)
+            try
             {
                 using var dataStream = new MemoryStream();
-                image.CopyTo(dataStream);
+                image.CopyToAsync(dataStream);
                 byte[] imageBytes = dataStream.ToArray();
 
                 Image imageObject = new Image
                 {
                     Id = Guid.NewGuid(),
                     Data = imageBytes,
-                    Size = (int)(image.Length / (1024*1024)),
+                    Size = image.Length / (1024 * 1024),
                     ImageType = Core.Contracts.Enums.ImageType.Jpeg,
                 };
 
@@ -56,8 +66,10 @@ namespace Esthetic.Service
                 _unitOfWork.SaveChanges();
                 return imageObject;
             }
-
-            throw new Exception("Error occurred while saving file to database.");
+            catch (Exception ex)
+            {
+                throw new Exception("Error occurred while saving file to database. Error = " + ex.Message);
+            }
         }
 
         public void CreateImageToFolder(Image image)
@@ -69,15 +81,14 @@ namespace Esthetic.Service
                     Directory.CreateDirectory(_environment.ContentRootPath + folder_name);
                 }
 
-                using (System.Drawing.Image imagex = System.Drawing.Image.FromStream(new MemoryStream(image.Data)))
+                using (System.Drawing.Image imageFile = System.Drawing.Image.FromStream(new MemoryStream(image.Data)))
                 {
-                    imagex.Save(_environment.ContentRootPath + "\\uploads\\" + image.Id.ToString() + ".jpg");
+                    imageFile.Save(_environment.ContentRootPath + "\\uploads\\" + image.Id.ToString() + ".jpg");
                 }
-
             }
             catch (Exception ex)
             {
-                //return default(Guid);
+                throw new Exception("Error occurred while saving file to disk. Error = " + ex.Message);
             }
         }
     }

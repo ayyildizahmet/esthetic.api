@@ -15,5 +15,11 @@ namespace Esthetic.Api.Controllers
         {
 
         }
+
+        [HttpGet]
+        public void GetList(int userId)
+        {
+
+        }
     }
 }

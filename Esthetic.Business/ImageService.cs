@@ -3,27 +3,30 @@ using Esthetic.DataAccess.Repositories.Contracts;
 using Esthetic.Domain;
 using Esthetic.Service.Contracts;
 using Microsoft.AspNetCore.Http;
-using Microsoft.Extensions.Hosting;
+using Microsoft.AspNetCore.Hosting;
 using System;
 using System.Drawing.Imaging;
 using System.IO;
 using System.Threading.Tasks;
-
+using Microsoft.Extensions.Configuration;
 
 namespace Esthetic.Service
 {
     public class ImageService : Core.Contracts.ServiceBase.Service, IImageService
     {
-        private const string folder_name = "\\uploads\\";
+        private const string folder_name = "Uploads";
         private readonly IImageRepository _imageRepository;
         private readonly IUnitOfWork _unitOfWork;
-        public static IHostEnvironment _environment;
+        private readonly IConfiguration _config;
+        public static IHostingEnvironment _environment;
+        
 
-        public ImageService(IImageRepository imageRepository, IUnitOfWork unitOfWork, IHostEnvironment environment)
+        public ImageService(IImageRepository imageRepository, IUnitOfWork unitOfWork, IConfiguration config, IHostingEnvironment environment)
         {
             _environment = environment;
             _imageRepository = imageRepository;
             _unitOfWork = unitOfWork;
+            _config = config;
         }
 
         public Guid Upload(IFormFile image)
@@ -76,14 +79,20 @@ namespace Esthetic.Service
         {
             try
             {
-                if (!Directory.Exists(_environment.ContentRootPath + folder_name))
+                var pathBuilt = _config.GetSection("MediaFilePath:Path").Value;
+                //if (_environment.IsDevelopment())
+                //{
+                //    pathBuilt = Path.Combine(_environment.ContentRootPath, folder_name);
+                //}         
+                
+                if (!Directory.Exists(pathBuilt))
                 {
-                    Directory.CreateDirectory(_environment.ContentRootPath + folder_name);
+                    Directory.CreateDirectory(pathBuilt);
                 }
 
                 using (System.Drawing.Image imageFile = System.Drawing.Image.FromStream(new MemoryStream(image.Data)))
                 {
-                    imageFile.Save(_environment.ContentRootPath + "\\uploads\\" + image.Id.ToString() + ".jpg");
+                    imageFile.Save(Path.Combine(pathBuilt, image.Id.ToString() + ".jpg"));
                 }
             }
             catch (Exception ex)

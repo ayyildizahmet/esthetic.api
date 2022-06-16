@@ -19,7 +19,7 @@ namespace Esthetic.Service
         private readonly IUnitOfWork _unitOfWork;
         private readonly IConfiguration _config;
         public static IHostingEnvironment _environment;
-        
+
 
         public ImageService(IImageRepository imageRepository, IUnitOfWork unitOfWork, IConfiguration config, IHostingEnvironment environment)
         {
@@ -45,7 +45,7 @@ namespace Esthetic.Service
             }
             catch (Exception ex)
             {
-                throw new Exception("Error occurred while uploading file. Error = " + ex.Message);
+                throw new Exception(String.Format("Error occurred while uploading file. Error = {0} Exception = {1}", ex.Message, ex.InnerException));
             }
         }
 
@@ -54,7 +54,7 @@ namespace Esthetic.Service
             try
             {
                 using var dataStream = new MemoryStream();
-                image.CopyToAsync(dataStream);
+                image.CopyTo(dataStream);
                 byte[] imageBytes = dataStream.ToArray();
 
                 Image imageObject = new Image
@@ -71,7 +71,7 @@ namespace Esthetic.Service
             }
             catch (Exception ex)
             {
-                throw new Exception("Error occurred while saving file to database. Error = " + ex.Message);
+                throw new Exception(String.Format("Error occurred while saving file to database. Error = {0} Exception = {1}", ex.Message, ex.InnerException));
             }
         }
 
@@ -80,11 +80,11 @@ namespace Esthetic.Service
             try
             {
                 var pathBuilt = _config.GetSection("MediaFilePath:Path").Value;
-                //if (_environment.IsDevelopment())
-                //{
-                //    pathBuilt = Path.Combine(_environment.ContentRootPath, folder_name);
-                //}         
-                
+                if (_environment.IsDevelopment())
+                {
+                    pathBuilt = Path.Combine(_environment.ContentRootPath, folder_name);
+                }
+
                 if (!Directory.Exists(pathBuilt))
                 {
                     Directory.CreateDirectory(pathBuilt);
@@ -97,7 +97,7 @@ namespace Esthetic.Service
             }
             catch (Exception ex)
             {
-                throw new Exception("Error occurred while saving file to disk. Error = " + ex.Message);
+                throw new Exception(String.Format("Error occurred while saving file to disk. Error = {0} Exception = {1}", ex.Message, ex.InnerException));
             }
         }
     }

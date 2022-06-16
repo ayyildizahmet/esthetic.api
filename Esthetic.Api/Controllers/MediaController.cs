@@ -27,41 +27,49 @@ namespace Esthetic.Api.Controllers
         }
 
         [HttpPost("upload")]
+        [RequestFormLimits(MultipartBodyLengthLimit = 134217728)]
         [DisableRequestSizeLimit]
         public Task<ResponseModel<Guid>> Upload(IFormFile file)
         {
             var response = new ResponseModel<Guid>();
-            if (file.Length > 0 && file.ContentType is not null)
+            try
             {
-                var mediaType = _mediaUtility.GetMediaType(file.ContentType);
-
-                if (mediaType is not null)
+                if (file.Length > 0 && file.ContentType is not null)
                 {
-                    switch (mediaType)
+                    var mediaType = _mediaUtility.GetMediaType(file.ContentType);
+
+                    if (mediaType is not null)
                     {
-                        case MediaType.Image:
-                            response.Data = _imageService.Upload(file);
-                            break;
-                        case MediaType.Video:
-                            Console.WriteLine("video service");
-                            break;
+                        switch (mediaType)
+                        {
+                            case MediaType.Image:
+                                response.Data = _imageService.Upload(file);
+                                break;
+                            case MediaType.Video:
+                                Console.WriteLine("video service");
+                                break;
+                        }
+                    }
+                    else
+                    {
+                        response.Success = false;
+                        response.Message = "Unsupported media type.";
                     }
                 }
                 else
                 {
                     response.Success = false;
-                    response.Message = "Unsupported media type.";
+                    response.Message = "Media cannot be null.";
                 }
+
+                if (response.Success)
+                    response.Message = "Media uploaded successfully.";
             }
-            else
+            catch (Exception e)
             {
-                response.Success = false;
-                response.Message = "Media cannot be null.";
+                response.Message = e.Message;
             }
-
-            if (response.Success)
-                response.Message = "Media uploaded successfully.";
-
+           
             return Task.FromResult(response);
         }
     }

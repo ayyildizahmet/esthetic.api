@@ -6,6 +6,11 @@ namespace Esthetic.Model
 {
     public class PostModel : IDataModel
     {
+        public PostModel()
+        {
+            PostMedias = new List<PostMediaModel>();
+        }
+
         public int Id { get; set; }
         public string Name { get; set; }
         public int CompanyId { get; set; }

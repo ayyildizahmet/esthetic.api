@@ -34,12 +34,13 @@ namespace Esthetic.Api.Controllers
             var response = new ResponseModel<Guid>();
             try
             {
-                if (file.Length > 0 && file.ContentType is not null)
+                if (file.Length <= 0 || file.ContentType is null)
+                    throw new Exception("Media cannot be null.");
+                else
                 {
                     var mediaType = _mediaUtility.GetMediaType(file.ContentType);
 
                     if (mediaType is not null)
-                    {
                         switch (mediaType)
                         {
                             case MediaType.Image:
@@ -49,27 +50,19 @@ namespace Esthetic.Api.Controllers
                                 Console.WriteLine("video service");
                                 break;
                         }
-                    }
                     else
-                    {
-                        response.Success = false;
-                        response.Message = "Unsupported media type.";
-                    }
+                        throw new Exception("Unsupported media type.");
                 }
-                else
-                {
-                    response.Success = false;
-                    response.Message = "Media cannot be null.";
-                }
-
-                if (response.Success)
-                    response.Message = "Media uploaded successfully.";
             }
-            catch (Exception e)
+            catch (Exception ex)
             {
-                response.Message = e.Message;
+                response.Success = false;
+                response.Message = ex.Message;
             }
-           
+
+            if (response.Success)
+                response.Message = "Media uploaded successfully.";
+
             return Task.FromResult(response);
         }
     }

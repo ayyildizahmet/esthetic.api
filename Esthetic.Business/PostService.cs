@@ -16,13 +16,15 @@ namespace Esthetic.Service
     {
         private readonly IPostRepository _postRepository;
         private readonly IPostMediaService _postMediaService;
+        private readonly IImageService _imageService;
         private readonly IUnitOfWork _unitOfWork;
         private readonly IMapper _mapper;
 
-        public PostService(IPostRepository postRepository, IPostMediaService postMediaService, IUnitOfWork unitOfWork, IMapper mapper)
+        public PostService(IPostRepository postRepository, IPostMediaService postMediaService, IImageService imageService, IUnitOfWork unitOfWork, IMapper mapper)
         {
             _postRepository = postRepository;
             _postMediaService = postMediaService;
+            _imageService = imageService;
             _unitOfWork = unitOfWork;
             _mapper = mapper;
         }
@@ -58,8 +60,26 @@ namespace Esthetic.Service
 
         public List<PostModel> GetList()
         {
-            var postList = _postRepository.Include(x => x.PostMedias).ToList();
+            var postList = _postRepository.Include(x => x.PostMedias).Where(x => x.PostMedias.Any()).ToList();
             var postModelList = _mapper.Map<List<Post>, List<PostModel>>(postList);
+
+            if (postModelList != null && postModelList.Any())
+            {
+                foreach (var postMediaItem in postModelList)
+                {
+                    var selestedPostMedias = postMediaItem.PostMedias.Where(x => x.ImageId != null).ToList();
+                    if (selestedPostMedias.Any())
+                    {
+                        foreach (var item in selestedPostMedias)
+                        {
+                            var selectedImage = _imageService.GetImageWithoutData(item.ImageId.GetValueOrDefault());
+                            if (selectedImage != null)
+                                item.Image = selectedImage;
+                        }
+                    }
+                }
+            }
+
             return postModelList;
         }
     }

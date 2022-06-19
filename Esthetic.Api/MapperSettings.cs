@@ -15,7 +15,7 @@ namespace Esthetic.Model.Mapper
             CreateMap<OperationTypeModel, OperationType>().ReverseMap();
             CreateMap<PostModel, Post>().ReverseMap();
             CreateMap<PostMediaModel, PostMedia>().ReverseMap();
-            CreateMap<ImageModel, Image>().ReverseMap();
+            CreateMap<ImageModel, Image>().ReverseMap().ForMember(dest => dest.Url, act => act.Ignore());
             CreateMap<VideoModel, Video>().ReverseMap();
         }
     }

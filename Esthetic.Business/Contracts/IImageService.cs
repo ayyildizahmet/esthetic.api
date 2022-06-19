@@ -2,13 +2,17 @@
 using Microsoft.AspNetCore.Http;
 using Esthetic.Domain;
 using System;
+using Esthetic.Model;
 
 namespace Esthetic.Service.Contracts
 {
     public interface IImageService : IService
     {
-        public Guid Upload(IFormFile image);
-        public Image CreateImageToDatabase(IFormFile image);
-        public void CreateImageToFolder(Image image);
+        string GenerateUrl(Image image);
+        ImageModel GetImage(Guid id);
+        ImageModel GetImageWithoutData(Guid id);
+        Guid Upload(IFormFile image);
+        Image CreateImageToDatabase(IFormFile image);
+        void CreateImageToFolder(Image image);
     }
 }

@@ -1,5 +1,8 @@
 ﻿using Esthetic.Core.Contracts.Enums;
 using Esthetic.Core.Contracts.Utilities;
+using System;
+using System.Drawing;
+using System.Drawing.Imaging;
 using System.Linq;
 
 namespace Esthetic.Utility
@@ -41,6 +44,37 @@ namespace Esthetic.Utility
             return null;
         }
 
+        //Attempt 1: Use ImageCodecInfo.GetImageEncoders
+        public string FileExtensionFromEncoder(ImageFormat format)
+        {
+            try
+            {
+                return ImageCodecInfo.GetImageEncoders()
+                        .First(x => x.FormatID == format.Guid)
+                        .FilenameExtension
+                        .Split(new[] { ';' }, StringSplitOptions.RemoveEmptyEntries)
+                        .First()
+                        .Trim('*')
+                        .ToLower();
+            }
+            catch (Exception)
+            {
+                return ".IDFK";
+            }
+        }
 
+        //Attempt 2: Using ImageFormatConverter().ConvertToString()
+        public string FileExtensionFromConverter(ImageFormat format)
+        {
+            return "." + new ImageFormatConverter().ConvertToString(format).ToLower();
+        }
+
+        //Attempt 3: Using ImageFormat.ToString()
+        public string FileExtensionFromToString(ImageFormat format)
+        {
+            return "." + format.ToString().ToLower();
+        }
     }
 }
+
+

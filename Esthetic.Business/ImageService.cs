@@ -9,24 +9,92 @@ using System.Drawing.Imaging;
 using System.IO;
 using System.Threading.Tasks;
 using Microsoft.Extensions.Configuration;
+using Esthetic.Core.Contracts.Utilities;
+using System.Linq;
+using AutoMapper;
+using Esthetic.Model;
+using Esthetic.Core.Contracts.Enums;
 
 namespace Esthetic.Service
 {
     public class ImageService : Core.Contracts.ServiceBase.Service, IImageService
     {
-        private const string folder_name = "Uploads";
         private readonly IImageRepository _imageRepository;
         private readonly IUnitOfWork _unitOfWork;
         private readonly IConfiguration _config;
         public static IHostingEnvironment _environment;
+        private readonly IMediaUtility _mediaUtility;
+        private readonly IMapper _mapper;
 
-
-        public ImageService(IImageRepository imageRepository, IUnitOfWork unitOfWork, IConfiguration config, IHostingEnvironment environment)
+        public ImageService(IImageRepository imageRepository, IUnitOfWork unitOfWork, IConfiguration config, IHostingEnvironment environment, IMediaUtility mediaUtility, IMapper mapper)
         {
             _environment = environment;
+            _mediaUtility = mediaUtility;
+            _mapper = mapper;
             _imageRepository = imageRepository;
             _unitOfWork = unitOfWork;
             _config = config;
+        }
+
+        public ImageModel GetImage(Guid id)
+        {
+            var image = _imageRepository.Where(x => x.Id == id).Select(x =>
+            new Image
+            {
+                Id = x.Id,
+                Extension = x.Extension,
+                CreatedDate = x.CreatedDate,
+                ModifiedDate = x.ModifiedDate,
+                Size = x.Size,
+                Data = x.Data,
+                ImageType = (ImageType)x.ImageType,
+                ImageCategoryType = (ImageCategoryType)x.ImageCategoryType,
+                State = x.State,
+            });
+
+            if (image != null)
+            {
+                return _mapper.Map<ImageModel>(image);
+            }
+            return null;
+        }
+
+        public ImageModel GetImageWithoutData(Guid id)
+        {
+            var image = _imageRepository.Where(x => x.Id == id).Select(x =>
+            new Image
+            {
+                Id = x.Id,
+                Extension = x.Extension,
+                CreatedDate = x.CreatedDate,
+                ModifiedDate = x.ModifiedDate,
+                Size = x.Size,
+                ImageType = (ImageType)x.ImageType,
+                ImageCategoryType = (ImageCategoryType)x.ImageCategoryType,
+                State = x.State,
+            }).FirstOrDefault();
+
+            if (image != null)
+            {
+                var imageModel = _mapper.Map<ImageModel>(image);
+                imageModel.Url = GenerateUrl(image);
+                return imageModel;
+            }
+            return null;
+        }
+
+        public string GenerateUrl(Image image)
+        {
+            String url = string.Empty;
+            var directory = _config.GetSection("MediaFilePath:ImageDirectory").Value;
+            var hostName = _config.GetSection("MediaFilePath:HostName").Value;
+            var port = _config.GetSection("MediaFilePath:Port").Value;
+            if (directory != null && hostName != null && port != null && image.Extension != null)
+            {
+                url = Path.Combine(hostName + ":" +port + "\\" + directory, image.Id + "." + image.Extension);
+                return url;
+            }
+            return null;
         }
 
         public Guid Upload(IFormFile image)
@@ -62,7 +130,8 @@ namespace Esthetic.Service
                     Id = Guid.NewGuid(),
                     Data = imageBytes,
                     Size = image.Length / (1024 * 1024),
-                    ImageType = Core.Contracts.Enums.ImageType.Jpeg,
+                    ImageType = _mediaUtility.GetImageType(image.ContentType) ?? Core.Contracts.Enums.ImageType.Unknown,
+                    Extension = image.ContentType.Split('/').LastOrDefault()
                 };
 
                 _imageRepository.Add(imageObject);
@@ -81,18 +150,14 @@ namespace Esthetic.Service
             {
                 var pathBuilt = _config.GetSection("MediaFilePath:Path").Value;
                 if (_environment.IsDevelopment())
-                {
-                    pathBuilt = Path.Combine(_environment.ContentRootPath, folder_name);
-                }
+                    pathBuilt = _environment.ContentRootPath + "Uploads";
 
                 if (!Directory.Exists(pathBuilt))
-                {
                     Directory.CreateDirectory(pathBuilt);
-                }
 
                 using (System.Drawing.Image imageFile = System.Drawing.Image.FromStream(new MemoryStream(image.Data)))
                 {
-                    imageFile.Save(Path.Combine(pathBuilt, image.Id.ToString() + ".jpg"));
+                    imageFile.Save(Path.Combine(pathBuilt, image.Id.ToString() + _mediaUtility.FileExtensionFromConverter(imageFile.RawFormat)));
                 }
             }
             catch (Exception ex)

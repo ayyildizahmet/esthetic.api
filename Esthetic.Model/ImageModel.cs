@@ -7,9 +7,9 @@ namespace Esthetic.Model
     public class ImageModel : IDataModel
     {
         public Guid Id { get; set; }
-        public string Name { get; set; }
         public string Url { get; set; }
         public byte[] Data { get; set; }
+        public string Extension { get; set; }
         public ImageType ImageType { get; set; }
         public ImageCategoryType ImageCategoryType { get; set; }
     }

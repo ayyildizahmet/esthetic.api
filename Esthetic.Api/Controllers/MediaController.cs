@@ -29,12 +29,12 @@ namespace Esthetic.Api.Controllers
         [HttpPost("upload")]
         [RequestFormLimits(MultipartBodyLengthLimit = 134217728)]
         [DisableRequestSizeLimit]
-        public Task<ResponseModel<Guid>> Upload(IFormFile file)
+        public Task<ResponseModel<Guid>> Upload(IFormFile file, ImageCategoryType categoryType)
         {
             var response = new ResponseModel<Guid>();
             try
             {
-                if (file.Length <= 0 || file.ContentType is null)
+                if (file.Length <= 0)
                     throw new Exception("Media cannot be null.");
                 else
                 {

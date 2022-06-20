@@ -6,7 +6,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace Esthetic.DataAccess.Migrations
 {
-    public partial class setup : Migration
+    public partial class script1 : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -76,16 +76,13 @@ namespace Esthetic.DataAccess.Migrations
                 name: "Image",
                 columns: table => new
                 {
-                    Id = table.Column<int>(type: "int", nullable: false)
-                        .Annotation("MySql:ValueGenerationStrategy", MySqlValueGenerationStrategy.IdentityColumn),
-                    Name = table.Column<string>(type: "varchar(200)", maxLength: 200, nullable: false)
+                    Id = table.Column<Guid>(type: "char(36)", nullable: false, collation: "ascii_general_ci"),
+                    Name = table.Column<string>(type: "varchar(200)", maxLength: 200, nullable: true)
                         .Annotation("MySql:CharSet", "utf8mb4"),
-                    Url = table.Column<string>(type: "varchar(200)", maxLength: 200, nullable: false)
+                    Data = table.Column<byte[]>(type: "LongBlob", nullable: false),
+                    Size = table.Column<double>(type: "double", nullable: false),
+                    Extension = table.Column<string>(type: "varchar(10)", maxLength: 10, nullable: true)
                         .Annotation("MySql:CharSet", "utf8mb4"),
-                    Data = table.Column<byte[]>(type: "longblob", nullable: false),
-                    ImageTypeId = table.Column<int>(type: "int", nullable: false),
-                    Width = table.Column<int>(type: "int", nullable: false),
-                    Height = table.Column<int>(type: "int", nullable: false),
                     ImageType = table.Column<int>(type: "int", nullable: false),
                     ImageCategoryType = table.Column<int>(type: "int", nullable: false),
                     State = table.Column<int>(type: "int", nullable: false),
@@ -127,6 +124,25 @@ namespace Esthetic.DataAccess.Migrations
                 .Annotation("MySql:CharSet", "utf8mb4");
 
             migrationBuilder.CreateTable(
+                name: "Video",
+                columns: table => new
+                {
+                    Id = table.Column<Guid>(type: "char(36)", nullable: false, collation: "ascii_general_ci"),
+                    Name = table.Column<string>(type: "longtext", nullable: true)
+                        .Annotation("MySql:CharSet", "utf8mb4"),
+                    Url = table.Column<string>(type: "longtext", nullable: true)
+                        .Annotation("MySql:CharSet", "utf8mb4"),
+                    State = table.Column<int>(type: "int", nullable: false),
+                    CreatedDate = table.Column<DateTime>(type: "datetime(6)", nullable: false),
+                    ModifiedDate = table.Column<DateTime>(type: "datetime(6)", nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Video", x => x.Id);
+                })
+                .Annotation("MySql:CharSet", "utf8mb4");
+
+            migrationBuilder.CreateTable(
                 name: "District",
                 columns: table => new
                 {
@@ -159,8 +175,7 @@ namespace Esthetic.DataAccess.Migrations
                         .Annotation("MySql:ValueGenerationStrategy", MySqlValueGenerationStrategy.IdentityColumn),
                     Name = table.Column<string>(type: "varchar(250)", maxLength: 250, nullable: false)
                         .Annotation("MySql:CharSet", "utf8mb4"),
-                    MediaType = table.Column<int>(type: "int", nullable: false),
-                    CompanyId = table.Column<int>(type: "int", nullable: true),
+                    CompanyId = table.Column<int>(type: "int", nullable: false),
                     State = table.Column<int>(type: "int", nullable: false),
                     CreatedDate = table.Column<DateTime>(type: "datetime(6)", nullable: false),
                     ModifiedDate = table.Column<DateTime>(type: "datetime(6)", nullable: true)
@@ -172,6 +187,31 @@ namespace Esthetic.DataAccess.Migrations
                         name: "FK_Post_Company_CompanyId",
                         column: x => x.CompanyId,
                         principalTable: "Company",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Restrict);
+                })
+                .Annotation("MySql:CharSet", "utf8mb4");
+
+            migrationBuilder.CreateTable(
+                name: "OperationType",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("MySql:ValueGenerationStrategy", MySqlValueGenerationStrategy.IdentityColumn),
+                    Name = table.Column<string>(type: "varchar(100)", maxLength: 100, nullable: false)
+                        .Annotation("MySql:CharSet", "utf8mb4"),
+                    ImageId = table.Column<Guid>(type: "char(36)", nullable: true, collation: "ascii_general_ci"),
+                    State = table.Column<int>(type: "int", nullable: false),
+                    CreatedDate = table.Column<DateTime>(type: "datetime(6)", nullable: false),
+                    ModifiedDate = table.Column<DateTime>(type: "datetime(6)", nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_OperationType", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_OperationType_Image_ImageId",
+                        column: x => x.ImageId,
+                        principalTable: "Image",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Restrict);
                 })
@@ -224,32 +264,42 @@ namespace Esthetic.DataAccess.Migrations
                 .Annotation("MySql:CharSet", "utf8mb4");
 
             migrationBuilder.CreateTable(
-                name: "ImagePost",
+                name: "PostMedia",
                 columns: table => new
                 {
                     Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("MySql:ValueGenerationStrategy", MySqlValueGenerationStrategy.IdentityColumn),
-                    Day = table.Column<int>(type: "int", nullable: false),
-                    Content = table.Column<int>(type: "int", maxLength: 250, nullable: false),
-                    ImageId = table.Column<int>(type: "int", nullable: false),
                     PostId = table.Column<int>(type: "int", nullable: false),
+                    Day = table.Column<int>(type: "int", nullable: false),
+                    Content = table.Column<string>(type: "varchar(250)", maxLength: 250, nullable: true)
+                        .Annotation("MySql:CharSet", "utf8mb4"),
+                    MediaType = table.Column<int>(type: "int", nullable: false),
+                    OperationStatusType = table.Column<int>(type: "int", nullable: false),
+                    ImageId = table.Column<Guid>(type: "char(36)", nullable: true, collation: "ascii_general_ci"),
+                    VideoId = table.Column<Guid>(type: "char(36)", nullable: true, collation: "ascii_general_ci"),
                     State = table.Column<int>(type: "int", nullable: false),
                     CreatedDate = table.Column<DateTime>(type: "datetime(6)", nullable: false),
                     ModifiedDate = table.Column<DateTime>(type: "datetime(6)", nullable: true)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_ImagePost", x => x.Id);
+                    table.PrimaryKey("PK_PostMedia", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_ImagePost_Image_ImageId",
+                        name: "FK_PostMedia_Image_ImageId",
                         column: x => x.ImageId,
                         principalTable: "Image",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Restrict);
                     table.ForeignKey(
-                        name: "FK_ImagePost_Post_PostId",
+                        name: "FK_PostMedia_Post_PostId",
                         column: x => x.PostId,
                         principalTable: "Post",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Restrict);
+                    table.ForeignKey(
+                        name: "FK_PostMedia_Video_VideoId",
+                        column: x => x.VideoId,
+                        principalTable: "Video",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Restrict);
                 })
@@ -292,8 +342,8 @@ namespace Esthetic.DataAccess.Migrations
                 columns: new[] { "Id", "Code", "CreatedDate", "ModifiedDate", "Name", "State" },
                 values: new object[,]
                 {
-                    { 1, "06", new DateTime(2022, 6, 9, 23, 6, 7, 455, DateTimeKind.Local).AddTicks(3337), new DateTime(2022, 6, 9, 23, 6, 7, 455, DateTimeKind.Local).AddTicks(3337), "Ankara", 1 },
-                    { 2, "34", new DateTime(2022, 6, 9, 23, 6, 7, 455, DateTimeKind.Local).AddTicks(3339), new DateTime(2022, 6, 9, 23, 6, 7, 455, DateTimeKind.Local).AddTicks(3339), "İstanbul", 1 }
+                    { 1, "06", new DateTime(2022, 6, 20, 22, 29, 0, 819, DateTimeKind.Local).AddTicks(7863), new DateTime(2022, 6, 20, 22, 29, 0, 819, DateTimeKind.Local).AddTicks(7864), "Ankara", 1 },
+                    { 2, "34", new DateTime(2022, 6, 20, 22, 29, 0, 819, DateTimeKind.Local).AddTicks(7866), new DateTime(2022, 6, 20, 22, 29, 0, 819, DateTimeKind.Local).AddTicks(7867), "İstanbul", 1 }
                 });
 
             migrationBuilder.InsertData(
@@ -301,28 +351,42 @@ namespace Esthetic.DataAccess.Migrations
                 columns: new[] { "Id", "CreatedDate", "LogoUrl", "ModifiedDate", "Name", "State" },
                 values: new object[,]
                 {
-                    { 1, new DateTime(2022, 6, 9, 23, 6, 7, 455, DateTimeKind.Local).AddTicks(3211), "http://ayyildiz.xyz:8070/company/akl.png", new DateTime(2022, 6, 9, 23, 6, 7, 455, DateTimeKind.Local).AddTicks(3220), "Akl Poliklinik", 1 },
-                    { 2, new DateTime(2022, 6, 9, 23, 6, 7, 455, DateTimeKind.Local).AddTicks(3223), "http://ayyildiz.xyz:8070/company/medeks.png", new DateTime(2022, 6, 9, 23, 6, 7, 455, DateTimeKind.Local).AddTicks(3224), "Medeks Hair Center", 1 },
-                    { 3, new DateTime(2022, 6, 9, 23, 6, 7, 455, DateTimeKind.Local).AddTicks(3224), "http://ayyildiz.xyz:8070/company/asuman.png", new DateTime(2022, 6, 9, 23, 6, 7, 455, DateTimeKind.Local).AddTicks(3225), "Asuman Hair Transplant Clinic", 1 },
-                    { 4, new DateTime(2022, 6, 9, 23, 6, 7, 455, DateTimeKind.Local).AddTicks(3226), "http://ayyildiz.xyz:8070/company/esteworld.png", new DateTime(2022, 6, 9, 23, 6, 7, 455, DateTimeKind.Local).AddTicks(3226), "Esteworld", 1 },
-                    { 5, new DateTime(2022, 6, 9, 23, 6, 7, 455, DateTimeKind.Local).AddTicks(3228), "http://ayyildiz.xyz:8070/company/maya.png", new DateTime(2022, 6, 9, 23, 6, 7, 455, DateTimeKind.Local).AddTicks(3228), "Maya Estetik", 1 },
-                    { 6, new DateTime(2022, 6, 9, 23, 6, 7, 455, DateTimeKind.Local).AddTicks(3229), "http://ayyildiz.xyz:8070/company/esteplace.png", new DateTime(2022, 6, 9, 23, 6, 7, 455, DateTimeKind.Local).AddTicks(3230), "Este Place", 1 }
+                    { 1, new DateTime(2022, 6, 20, 22, 29, 0, 819, DateTimeKind.Local).AddTicks(7578), "http://ayyildiz.xyz:8070/company/akl.png", new DateTime(2022, 6, 20, 22, 29, 0, 819, DateTimeKind.Local).AddTicks(7591), "Akl Poliklinik", 1 },
+                    { 2, new DateTime(2022, 6, 20, 22, 29, 0, 819, DateTimeKind.Local).AddTicks(7596), "http://ayyildiz.xyz:8070/company/medeks.png", new DateTime(2022, 6, 20, 22, 29, 0, 819, DateTimeKind.Local).AddTicks(7597), "Medeks Hair Center", 1 },
+                    { 3, new DateTime(2022, 6, 20, 22, 29, 0, 819, DateTimeKind.Local).AddTicks(7598), "http://ayyildiz.xyz:8070/company/asuman.png", new DateTime(2022, 6, 20, 22, 29, 0, 819, DateTimeKind.Local).AddTicks(7599), "Asuman Hair Transplant Clinic", 1 },
+                    { 4, new DateTime(2022, 6, 20, 22, 29, 0, 819, DateTimeKind.Local).AddTicks(7601), "http://ayyildiz.xyz:8070/company/esteworld.png", new DateTime(2022, 6, 20, 22, 29, 0, 819, DateTimeKind.Local).AddTicks(7601), "Esteworld", 1 },
+                    { 5, new DateTime(2022, 6, 20, 22, 29, 0, 819, DateTimeKind.Local).AddTicks(7603), "http://ayyildiz.xyz:8070/company/maya.png", new DateTime(2022, 6, 20, 22, 29, 0, 819, DateTimeKind.Local).AddTicks(7604), "Maya Estetik", 1 },
+                    { 6, new DateTime(2022, 6, 20, 22, 29, 0, 819, DateTimeKind.Local).AddTicks(7606), "http://ayyildiz.xyz:8070/company/esteplace.png", new DateTime(2022, 6, 20, 22, 29, 0, 819, DateTimeKind.Local).AddTicks(7606), "Este Place", 1 }
+                });
+
+            migrationBuilder.InsertData(
+                table: "OperationType",
+                columns: new[] { "Id", "CreatedDate", "ImageId", "ModifiedDate", "Name", "State" },
+                values: new object[,]
+                {
+                    { 1, new DateTime(2022, 6, 20, 22, 29, 0, 819, DateTimeKind.Local).AddTicks(7828), null, null, "Saç Ekimi", 1 },
+                    { 2, new DateTime(2022, 6, 20, 22, 29, 0, 819, DateTimeKind.Local).AddTicks(7830), null, null, "Burun", 1 },
+                    { 3, new DateTime(2022, 6, 20, 22, 29, 0, 819, DateTimeKind.Local).AddTicks(7832), null, null, "Çene", 1 },
+                    { 4, new DateTime(2022, 6, 20, 22, 29, 0, 819, DateTimeKind.Local).AddTicks(7833), null, null, "Dolgu", 1 },
+                    { 5, new DateTime(2022, 6, 20, 22, 29, 0, 819, DateTimeKind.Local).AddTicks(7834), null, null, "Göğüs", 1 },
+                    { 6, new DateTime(2022, 6, 20, 22, 29, 0, 819, DateTimeKind.Local).AddTicks(7835), null, null, "Kulak", 1 },
+                    { 7, new DateTime(2022, 6, 20, 22, 29, 0, 819, DateTimeKind.Local).AddTicks(7836), null, null, "Kalça", 1 }
                 });
 
             migrationBuilder.InsertData(
                 table: "District",
                 columns: new[] { "Id", "CityId", "CreatedDate", "ModifiedDate", "Name", "State" },
-                values: new object[] { 1, 2, new DateTime(2022, 6, 9, 23, 6, 7, 455, DateTimeKind.Local).AddTicks(3351), new DateTime(2022, 6, 9, 23, 6, 7, 455, DateTimeKind.Local).AddTicks(3351), "Üsküdar", 1 });
+                values: new object[] { 1, 2, new DateTime(2022, 6, 20, 22, 29, 0, 819, DateTimeKind.Local).AddTicks(7888), new DateTime(2022, 6, 20, 22, 29, 0, 819, DateTimeKind.Local).AddTicks(7889), "Üsküdar", 1 });
 
             migrationBuilder.InsertData(
                 table: "District",
                 columns: new[] { "Id", "CityId", "CreatedDate", "ModifiedDate", "Name", "State" },
-                values: new object[] { 2, 2, new DateTime(2022, 6, 9, 23, 6, 7, 455, DateTimeKind.Local).AddTicks(3352), new DateTime(2022, 6, 9, 23, 6, 7, 455, DateTimeKind.Local).AddTicks(3353), "Kadıköy", 1 });
+                values: new object[] { 2, 2, new DateTime(2022, 6, 20, 22, 29, 0, 819, DateTimeKind.Local).AddTicks(7891), new DateTime(2022, 6, 20, 22, 29, 0, 819, DateTimeKind.Local).AddTicks(7891), "Kadıköy", 1 });
 
             migrationBuilder.InsertData(
                 table: "District",
                 columns: new[] { "Id", "CityId", "CreatedDate", "ModifiedDate", "Name", "State" },
-                values: new object[] { 3, 2, new DateTime(2022, 6, 9, 23, 6, 7, 455, DateTimeKind.Local).AddTicks(3354), new DateTime(2022, 6, 9, 23, 6, 7, 455, DateTimeKind.Local).AddTicks(3354), "Ataşehir", 1 });
+                values: new object[] { 3, 2, new DateTime(2022, 6, 20, 22, 29, 0, 819, DateTimeKind.Local).AddTicks(7893), new DateTime(2022, 6, 20, 22, 29, 0, 819, DateTimeKind.Local).AddTicks(7894), "Ataşehir", 1 });
 
             migrationBuilder.CreateIndex(
                 name: "IX_Address_CityId",
@@ -355,19 +419,29 @@ namespace Esthetic.DataAccess.Migrations
                 column: "CityId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_ImagePost_ImageId",
-                table: "ImagePost",
+                name: "IX_OperationType_ImageId",
+                table: "OperationType",
                 column: "ImageId");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_ImagePost_PostId",
-                table: "ImagePost",
-                column: "PostId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_Post_CompanyId",
                 table: "Post",
                 column: "CompanyId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_PostMedia_ImageId",
+                table: "PostMedia",
+                column: "ImageId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_PostMedia_PostId",
+                table: "PostMedia",
+                column: "PostId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_PostMedia_VideoId",
+                table: "PostMedia",
+                column: "VideoId");
         }
 
         protected override void Down(MigrationBuilder migrationBuilder)
@@ -379,7 +453,10 @@ namespace Esthetic.DataAccess.Migrations
                 name: "Category");
 
             migrationBuilder.DropTable(
-                name: "ImagePost");
+                name: "OperationType");
+
+            migrationBuilder.DropTable(
+                name: "PostMedia");
 
             migrationBuilder.DropTable(
                 name: "Address");
@@ -389,6 +466,9 @@ namespace Esthetic.DataAccess.Migrations
 
             migrationBuilder.DropTable(
                 name: "Post");
+
+            migrationBuilder.DropTable(
+                name: "Video");
 
             migrationBuilder.DropTable(
                 name: "District");

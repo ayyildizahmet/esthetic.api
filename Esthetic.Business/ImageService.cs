@@ -22,13 +22,13 @@ namespace Esthetic.Service
         private readonly IImageRepository _imageRepository;
         private readonly IUnitOfWork _unitOfWork;
         private readonly IConfiguration _config;
-        public static IHostingEnvironment _environment;
+        public static IHostingEnvironment Environment;
         private readonly IMediaUtility _mediaUtility;
         private readonly IMapper _mapper;
 
         public ImageService(IImageRepository imageRepository, IUnitOfWork unitOfWork, IConfiguration config, IHostingEnvironment environment, IMediaUtility mediaUtility, IMapper mapper)
         {
-            _environment = environment;
+            Environment = environment;
             _mediaUtility = mediaUtility;
             _mapper = mapper;
             _imageRepository = imageRepository;
@@ -47,16 +47,12 @@ namespace Esthetic.Service
                 ModifiedDate = x.ModifiedDate,
                 Size = x.Size,
                 Data = x.Data,
-                ImageType = (ImageType)x.ImageType,
-                ImageCategoryType = (ImageCategoryType)x.ImageCategoryType,
+                ImageType = x.ImageType,
+                ImageCategoryType = x.ImageCategoryType,
                 State = x.State,
             });
 
-            if (image != null)
-            {
-                return _mapper.Map<ImageModel>(image);
-            }
-            return null;
+            return _mapper.Map<ImageModel>(image);
         }
 
         public ImageModel GetImageWithoutData(Guid id)
@@ -69,8 +65,8 @@ namespace Esthetic.Service
                 CreatedDate = x.CreatedDate,
                 ModifiedDate = x.ModifiedDate,
                 Size = x.Size,
-                ImageType = (ImageType)x.ImageType,
-                ImageCategoryType = (ImageCategoryType)x.ImageCategoryType,
+                ImageType = x.ImageType,
+                ImageCategoryType = x.ImageCategoryType,
                 State = x.State,
             }).FirstOrDefault();
 
@@ -85,16 +81,27 @@ namespace Esthetic.Service
 
         public string GenerateUrl(Image image)
         {
-            String url = string.Empty;
             var directory = _config.GetSection("MediaFilePath:ImageDirectory").Value;
             var hostName = _config.GetSection("MediaFilePath:HostName").Value;
             var port = _config.GetSection("MediaFilePath:Port").Value;
-            if (directory != null && hostName != null && port != null && image.Extension != null)
+            if (directory == null || hostName == null || port == null || image.Extension == null) return null;
+            var url = Path.Combine(hostName + ":" + port + "\\" + directory, image.Id + "." + image.Extension);
+            GenerateFileIfNotExist(image);
+            return url;
+        }
+
+        public void GenerateFileIfNotExist(Image image)
+        {
+            var filePath = _config.GetSection("MediaFilePath:Path").Value;
+            var exists = File.Exists(Path.Combine(filePath, image.Id + "." + image.Extension));
+            if (!exists)
             {
-                url = Path.Combine(hostName + ":" +port + "\\" + directory, image.Id + "." + image.Extension);
-                return url;
+                var selectedImage = _imageRepository.FirstOrDefault(x => x.Id == image.Id);
+                if (selectedImage != null)
+                    CreateImageToFolder(selectedImage);
             }
-            return null;
+
+            
         }
 
         public Guid Upload(IFormFile image)
@@ -113,7 +120,8 @@ namespace Esthetic.Service
             }
             catch (Exception ex)
             {
-                throw new Exception(String.Format("Error occurred while uploading file. Error = {0} Exception = {1}", ex.Message, ex.InnerException));
+                throw new Exception(
+                    $"Error occurred while uploading file. Error = {ex.Message} Exception = {ex.InnerException}");
             }
         }
 
@@ -129,7 +137,8 @@ namespace Esthetic.Service
                 {
                     Id = Guid.NewGuid(),
                     Data = imageBytes,
-                    Size = image.Length / (1024 * 1024),
+                    Size = image.Length / (1024.0 * 1024.0),
+                    Name = image.FileName,
                     ImageType = _mediaUtility.GetImageType(image.ContentType) ?? Core.Contracts.Enums.ImageType.Unknown,
                     Extension = image.ContentType.Split('/').LastOrDefault()
                 };
@@ -140,7 +149,8 @@ namespace Esthetic.Service
             }
             catch (Exception ex)
             {
-                throw new Exception(String.Format("Error occurred while saving file to database. Error = {0} Exception = {1}", ex.Message, ex.InnerException));
+                throw new Exception(
+                    $"Error occurred while saving file to database. Error = {ex.Message} Exception = {ex.InnerException}");
             }
         }
 
@@ -148,21 +158,27 @@ namespace Esthetic.Service
         {
             try
             {
+                using System.Drawing.Image imageFile = System.Drawing.Image.FromStream(new MemoryStream(image.Data));
                 var pathBuilt = _config.GetSection("MediaFilePath:Path").Value;
-                if (_environment.IsDevelopment())
-                    pathBuilt = _environment.ContentRootPath + "Uploads";
+                //if (Environment.IsDevelopment())
+                //    pathBuilt = Environment.ContentRootPath + "Uploads";
 
-                if (!Directory.Exists(pathBuilt))
-                    Directory.CreateDirectory(pathBuilt);
-
-                using (System.Drawing.Image imageFile = System.Drawing.Image.FromStream(new MemoryStream(image.Data)))
+                if (pathBuilt != null)
                 {
-                    imageFile.Save(Path.Combine(pathBuilt, image.Id.ToString() + _mediaUtility.FileExtensionFromConverter(imageFile.RawFormat)));
+                    if (!Directory.Exists(pathBuilt))
+                        Directory.CreateDirectory(pathBuilt);
+
+                    imageFile.Save(Path.Combine(pathBuilt, image.Id + _mediaUtility.FileExtensionFromConverter(imageFile.RawFormat)));
+                }
+                else
+                {
+                    throw new Exception("MediaFilePath:Path value can not be null");
                 }
             }
             catch (Exception ex)
             {
-                throw new Exception(String.Format("Error occurred while saving file to disk. Error = {0} Exception = {1}", ex.Message, ex.InnerException));
+                throw new Exception(
+                    $"Error occurred while saving file to disk. Error = {ex.Message} Exception = {ex.InnerException}");
             }
         }
     }

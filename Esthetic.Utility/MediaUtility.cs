@@ -11,36 +11,29 @@ namespace Esthetic.Utility
     {
         public ImageType? GetImageType(string contentType)
         {
-            if (contentType is not null)
-            {
-                var selectedType = contentType.Split('/').LastOrDefault();
-
-                if (selectedType != null)
-                    switch (selectedType)
-                    {
-                        case "jpeg":
-                            return ImageType.Jpeg;
-                        case "png":
-                            return ImageType.Png;
-                    }
-            }
+            var selectedType = contentType?.Split('/').LastOrDefault();
+            if (selectedType != null)
+                switch (selectedType)
+                {
+                    case "jpeg":
+                        return ImageType.Jpeg;
+                    case "png":
+                        return ImageType.Png;
+                }
             return null;
         }
 
         public MediaType? GetMediaType(string contentType)
         {
-            if (contentType is not null)
-            {
-                var selectedType = contentType.Split('/').FirstOrDefault();
-                if (selectedType != null)
-                    switch (selectedType)
-                    {
-                        case "image":
-                            return MediaType.Image;
-                        case "video":
-                            return MediaType.Video;
-                    }
-            }
+            var selectedType = contentType?.Split('/').FirstOrDefault();
+            if (selectedType != null)
+                switch (selectedType)
+                {
+                    case "image":
+                        return MediaType.Image;
+                    case "video":
+                        return MediaType.Video;
+                }
             return null;
         }
 
@@ -49,9 +42,11 @@ namespace Esthetic.Utility
         {
             try
             {
-                return ImageCodecInfo.GetImageEncoders()
-                        .First(x => x.FormatID == format.Guid)
-                        .FilenameExtension
+                var filenameExtension = ImageCodecInfo.GetImageEncoders()
+                    .First(x => x.FormatID == format.Guid)
+                    .FilenameExtension;
+                if (filenameExtension != null)
+                    return filenameExtension
                         .Split(new[] { ';' }, StringSplitOptions.RemoveEmptyEntries)
                         .First()
                         .Trim('*')
@@ -61,12 +56,14 @@ namespace Esthetic.Utility
             {
                 return ".IDFK";
             }
+
+            return null;
         }
 
         //Attempt 2: Using ImageFormatConverter().ConvertToString()
         public string FileExtensionFromConverter(ImageFormat format)
         {
-            return "." + new ImageFormatConverter().ConvertToString(format).ToLower();
+            return "." + new ImageFormatConverter().ConvertToString(format)?.ToLower();
         }
 
         //Attempt 3: Using ImageFormat.ToString()

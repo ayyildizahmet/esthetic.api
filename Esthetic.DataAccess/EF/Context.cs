@@ -98,11 +98,13 @@ namespace Esthetic.DataAccess.EF
             );
 
             modelBuilder.Entity<OperationType>().HasData(
-                new District { Id = 1, Name = "Saç Ekimi", CreatedDate = DateTime.Now, ModifiedDate = DateTime.Now },
-                new District { Id = 2, Name = "Kök Hücre Tedavisi", CreatedDate = DateTime.Now, ModifiedDate = DateTime.Now },
-                new District { Id = 3, Name = "P.R.P", CreatedDate = DateTime.Now, ModifiedDate = DateTime.Now },
-                new District { Id = 4, Name = "Botoks", CreatedDate = DateTime.Now, ModifiedDate = DateTime.Now },
-                new District { Id = 5, Name = "Lazer Epilasyon", CreatedDate = DateTime.Now, ModifiedDate = DateTime.Now }
+                new OperationType { Id = 1, Name = "Saç Ekimi", CreatedDate = DateTime.Now },
+                new OperationType { Id = 2, Name = "Burun", CreatedDate = DateTime.Now },
+                new OperationType { Id = 3, Name = "Çene", CreatedDate = DateTime.Now },
+                new OperationType { Id = 4, Name = "Dolgu", CreatedDate = DateTime.Now },
+                new OperationType { Id = 5, Name = "Göğüs", CreatedDate = DateTime.Now },
+                new OperationType { Id = 6, Name = "Kulak", CreatedDate = DateTime.Now },
+                new OperationType { Id = 7, Name = "Kalça", CreatedDate = DateTime.Now }
             );
 
             modelBuilder.Entity<City>().HasData(

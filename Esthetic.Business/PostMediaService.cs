@@ -26,10 +26,17 @@ namespace Esthetic.Service
         {
             try
             {
-                if (postMediaModel.MediaType == MediaType.Image && postMediaModel.ImageId == null)
-                    throw new ArgumentException("PostMedia Image can not be null");
-                if (postMediaModel.MediaType == MediaType.Video && postMediaModel.VideoId == null)
-                    throw new ArgumentException("PostMedia Video can not be null");
+                switch (postMediaModel.MediaType)
+                {
+                    case MediaType.Image when postMediaModel.ImageId == null:
+                        throw new ArgumentException("PostMedia Image can not be null");
+                    case MediaType.Video when postMediaModel.VideoId == null:
+                        throw new ArgumentException("PostMedia Video can not be null");
+                    case MediaType.Pdf:
+                        break;
+                    default:
+                        throw new ArgumentOutOfRangeException();
+                }
 
                 var postMedia = _mapper.Map<PostMedia>(postMediaModel);
 
@@ -38,7 +45,8 @@ namespace Esthetic.Service
             }
             catch (Exception ex)
             {
-                throw new Exception(String.Format("Error occurred while creating post media record. Error = {0} Exception = {1}", ex.Message, ex.InnerException));
+                throw new Exception(
+                    $"Error occurred while creating post media record. Error = {ex.Message} Exception = {ex.InnerException}");
             }
         }
       

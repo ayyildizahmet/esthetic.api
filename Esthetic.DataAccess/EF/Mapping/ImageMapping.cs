@@ -16,7 +16,6 @@ namespace Esthetic.DataAccess.EF.Mapping
             builder.Property(c => c.Size).IsRequired();
             builder.Property(c => c.ImageType).IsRequired();
             builder.Property(c => c.ImageCategoryType);
-
         }
     }
 }
